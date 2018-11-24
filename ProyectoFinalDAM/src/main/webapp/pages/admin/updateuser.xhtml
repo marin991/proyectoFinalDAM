@@ -1,0 +1,95 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/layout/templateAdmin.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			
+			<p:dataTable id="modifyUsers" var="item" value="#{appManagedBean.listAppUserDTO}"
+				editable="true" style="margin-bottom:20px" selection="#{appManagedBean.listAppUserSelected}"
+				rowKey="#{item.userName}" >
+
+				<p:ajax event="rowEdit" listener="#{appManagedBean.onRowEdit}" update="growl" />
+       			<p:ajax event="rowEditCancel" listener="#{appManagedBean.onRowCancel}" update="growl" />
+
+				<p:column headerText="UserName" filterBy="#{item.userName}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.userName}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.userName}" style="width:100%" label="Nombre" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
+		           <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Nombre" /></f:facet>
+		           </p:cellEditor>
+		        </p:column>   										
+				
+				<p:column headerText="Apellidos" filterBy="#{item.apellidos}" filterMatchMode="contains">
+		           <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.apellidos}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.apellidos}" style="width:100%"/></f:facet>
+		           </p:cellEditor>	
+		        </p:column>   
+		        
+		        <p:column headerText="Contraseña" filterBy="#{item.encryptedPassword}" filterMatchMode="contains">
+		           <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.encryptedPassword}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.encryptedPassword}" style="width:100%"/></f:facet>
+		           </p:cellEditor>	
+		        </p:column>   	
+		         
+		        
+		        <p:column headerText="Rol" filterBy="#{appManagedBean.returnRole(item.appRoleEntities)}" filterMatchMode="contains">
+		           <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{appManagedBean.returnRole(item.appRoleEntities)}" /></f:facet>
+		               <f:facet name="input">
+			               	<p:selectOneRadio id="rol"
+							value="#{item.appRoleEntityId}">
+								<f:selectItem itemLabel="role_user role_admin" itemValue="1" />
+								<f:selectItem itemLabel="role_user" itemValue="2" />
+							</p:selectOneRadio>
+		               </f:facet>
+		           </p:cellEditor>					
+				</p:column>	
+				
+		         <p:column headerText="Estatus">
+		           <p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.status}" /></f:facet>
+		               <f:facet name="input">
+			               	<p:selectOneRadio id="status"
+							value="#{item.status}">
+								<f:selectItem itemLabel="Permitido" itemValue="Permitido" />
+								<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
+							</p:selectOneRadio>
+		               </f:facet>
+		           </p:cellEditor>					
+				</p:column>	
+		        
+		           				
+				<p:column style="width:32px">
+				    <p:rowEditor />
+				</p:column>   
+				<p:column style="width:32px">
+					<p:commandButton ajax="false" icon="ui-icon-trash"
+						validateClient="true" action="#{appManagedBean.deleteUser}" >
+						<f:setPropertyActionListener value="#{item.userName}" target="#{appManagedBean.userNameToDelete}" />
+					</p:commandButton>
+				</p:column>
+			
+			</p:dataTable> 		
+ 			<div align="right">
+ 				<p:commandButton value="Limpiar" update="modifyUsers"
+					icon="fa fa-refresh"
+					action="#{appManagedBean.reset()}" />
+				<p:commandButton value="Buscar Todos" ajax="false" update="modifyUsers"
+					icon="ui-icon-check" validateClient="true"
+					action="#{appManagedBean.findAll()}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>

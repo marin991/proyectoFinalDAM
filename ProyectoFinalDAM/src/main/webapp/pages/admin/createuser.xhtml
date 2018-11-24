@@ -1,0 +1,53 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	template="/layout/templateAdmin.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:panel header="Crear Usuario">
+				<h:panelGrid columns="2" cellpadding="3">
+					<h:outputLabel for="userName" value="UserName:" />
+					<p:inputText id="userName"
+						value="#{appManagedBean.managedBeanUserDTO.userName}" label="UserName" />
+					
+					<h:outputLabel for="nombre" value="Nombre:" />
+					<p:inputText id="nombre"
+						value="#{appManagedBean.managedBeanUserDTO.nombre}" label="Nombre" />
+
+					<h:outputLabel for="apellidos" value="Apellidos:" />
+					<p:inputText id="apellidos"
+						value="#{appManagedBean.managedBeanUserDTO.apellidos}" />
+		
+					<h:outputLabel for="encryptedPassword" value="Encrypted password:" />
+					<p:inputText id="encryptedPassword"
+						value="#{appManagedBean.managedBeanUserDTO.encryptedPassword}" />
+					
+					<h:outputLabel for="status" value="Estado de bloqueo:" />			
+					<p:selectOneRadio id="status"
+						value="#{appManagedBean.managedBeanUserDTO.status}">
+						<f:selectItem itemLabel="Permitido" itemValue="Permitido" />
+						<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
+					</p:selectOneRadio> 
+					
+					<h:outputLabel for="firstVisit" value="First visit:" />
+					<p:inputText id="firstVisit"
+						value="#{appManagedBean.managedBeanUserDTO.firstVisit}" />
+					
+					<p:outputLabel for="console" value="Basic:" />
+			        <p:selectOneMenu id="console" value="#{appManagedBean.managedBeanUserRoleDTO.roleId}" style="width:125px">
+			            
+			            <f:selectItem itemLabel="Usuario" itemValue="2" />
+			            <f:selectItem itemLabel="Administrador" itemValue="1" />
+			            
+			        </p:selectOneMenu>
+        
+				</h:panelGrid>
+				<p:commandButton value="Guardar" ajax="false" icon="ui-icon-check"
+					validateClient="true" action="#{appManagedBean.newUserAndRoleUserWithReset()}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,219 @@
+@charset "ISO-8859-1";
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
+@import url('https://fonts.googleapis.com/css?family=Fresca|Passion+One');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
+
+
+/*
+body {
+	font-family: 'Source Sans Pro', sans-serif;
+}
+*/
+
+#cabecera {
+	width: 100%;
+	height: 120px;
+	display: flex;
+	justify-content: space-around;
+}
+
+#cabecera .logoAtos {
+	width: 100%;
+	height: 120px;
+	background-image: url("/images/logoAtos.png");
+	background-repeat: no-repeat;
+	background-position:center ;
+}
+
+#cabecera .logoVisi {
+	width: 100%;
+	height: 120px;
+	background-image: url("/images/logoVisi.png");
+	background-repeat: no-repeat;
+	background-position:center;
+}
+
+#titulo-login {
+	text-align: center;
+}
+
+#formularioLogin {
+	width: 30%;
+	height: 200px;
+	margin: auto;
+	padding: 1%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+#formularioLogin #grid {
+}
+
+#formularioLogin #cmdentrarlogin {
+	font-size: 15px;
+    text-transform: uppercase;
+    line-height: 1.3;
+    text-align: center;
+    vertical-align: middle;
+    width: 100%;
+    min-height: 48px;
+    background-color: #2e3436;
+    border: 2px solid #0066a1;
+    color: #FFF;
+    cursor: pointer;    
+}
+
+#errorlogintexto {
+	width: 40%;
+	height: 200px;
+	margin: auto;
+	margin-top: 5%;
+	padding: 1%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	
+}
+
+#linkaindex {
+	font-size: 1.2em;
+	font-weight: bold;	
+	padding-top: 20px;
+    text-transform: uppercase;
+    text-align: center;
+    vertical-align: middle;
+    width: 50%;
+    min-height: 48px;
+    background-color: #0066a1;
+    border: 2px solid #0066a1;
+    color: #FFF;
+    cursor: pointer;  
+	display:inline;
+}
+
+/*FORMULARIO CRUD CON PRIMEFACES*/
+
+#formcrud {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 100px;
+}
+#menucrud {
+    width: 30%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	font-weight: bold;
+}
+.itemcrud {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 1.5em;
+	border: 1px solid blue;
+}
+div .pmenucrud {
+	text-align: center;
+}
+.pmenucrud div.ui-menu {
+	text-align: center;
+}
+.pmenucrud .ui-pmenucrud-list{
+	width: 100%;
+	display: inline-flex;
+}
+div.pmenucrud>ul.ui-pmenucrud-list>li>a{
+	width: 100%;
+}
+div.pmenucrud>ul.ui-pmenucrud-list>li{
+	width: 100%;
+}
+.ui-menuitem-text{
+	float: none!important;
+}
+
+/*FORMULARIO CRUD CON HTML*/
+
+#menucrud2 {
+    width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+#menucrud2 div {    
+	width: 30%;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	margin: 50px;  /*para separar del otro menu en la prueba*/
+}
+
+.linkitemcrud {
+	font-size: 1.5em;
+    text-transform: uppercase;   
+    text-align: center;
+    vertical-align: middle;
+    min-width: 300px;
+    min-height: 48px;
+    background-color: #0066a1;
+    border: 2px solid #0066a1;
+    color: #FFF;
+    cursor: pointer;  
+    text-decoration: none;
+    font-weight: bold;
+    min-width: 300px;
+    margin: 0;
+    padding-top: 20px;
+}
+
+.linkitemcrud:hover {
+    background-color: #FFF;
+    border: 2px solid #0066a1;
+    color: #0066a1;
+}
+
+/* FIN DE MENU DEL CRUD*/
+
+
+/*FORMULARIO USER OPTIONS CON PRIMEFACES*/
+
+#formuseroptions {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	margin-top: 100px;
+}
+#menuuseroptions {
+    width: 30%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	font-weight: bold;
+}
+.itemuseroptions {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	font-size: 1.5em;
+	border: 1px solid blue;
+}
+div .pmenuuseroptions {
+	text-align: center;
+}
+.pmenuuseroptions div.ui-menu {
+	text-align: center;
+}
+.pmenuuseroptions .ui-pmenuuseroptions-list{
+	width: 100%;
+	display: inline-flex;
+}
+div.pmenuuseroptions>ul.ui-pmenuuseroptions-list>li>a{
+	width: 100%;
+}
+div.pmenuuseroptions>ul.ui-pmenuuseroptions-list>li{
+	width: 100%;
+}
+.ui-menuitem-text{
+	float: none!important;
+}
+
+
