@@ -28,7 +28,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter{
 		
 		http.csrf().disable().
 			authorizeRequests()
-			.antMatchers("/javax.faces.resource/**","/index.xhtml","/pages/user/accesodenegado.xhtml","/accesobloqueado.xhtml","/accesoerror.xhtml", 
+			.antMatchers("/javax.faces.resource/*","/index.xhtml","/pages/user/accesodenegado.xhtml","/accesobloqueado.xhtml","/accesoerror.xhtml", 
 					"/css/**", "/images/**", "/js/**", "/layout/**", "/WEB-INF/**" ).permitAll()
 			/*
 			 * Páginas con acceso para todo los roles y usuario no 

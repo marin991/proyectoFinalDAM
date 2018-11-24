@@ -11,18 +11,79 @@
 		<h1>¡Bienvenido a ViSi USUARIO!</h1>
 		
 		<!-- OPCION 1: FORMULARIO OPCIONES DE USUARIO CON PRIMEFACES-->
-		<h:form id="formuseroptions">
-			<div id="menuuseroptions">
-				<p:menubar styleClass="pmenuuseroptions">
-					<p:menuitem value="CARGAR EXCEL" class="itemuseroptions"
-						 url="/pages/user/excelload.xhtml" />
-					<p:menuitem value="VISUALIZAR DATOS" class="itemuseroptions"
-						 url="/pages/user/datavisualization.xhtml" />					
-				</p:menubar>
-			</div>
-		</h:form>	
-		<br />
 		
+		<script type="text/javascript" src="/../../../js/drop.js"></script>
+	<h:form id="gameForm">
+	    <p:fieldset id="availableGamesField" legend="AvailableGames">
+	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="3">
+	            <p:panel id="pnl" header="#{item.userName}" style="text-align:center">
+	                <h:panelGrid columns="1" style="width:100%">
+	                    <p:graphicImage value="/../../../images/#{item.nombre}" />
+	                    
+	                </h:panelGrid>
+	            </p:panel>
+	 
+	            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
+	        </p:dataGrid>
+	    </p:fieldset>
+	 
+	    <p:fieldset id="selectedGames" legend="Juegos seleccionados" style="margin-top:20px">
+	        <p:outputPanel id="dropArea">
+	            <h:outputText value="!!!Arrastra aqui!!!" rendered="#{empty gamesManagedBean.droppedGames}" style="font-size:24px;" />
+	            <p:dataTable id="selectedGamesTable" var="item2" value="#{gamesManagedBean.droppedGames}" rendered="#{not empty gamesManagedBean.droppedGames}">
+	                <p:column headerText="Id">
+	                    <h:outputText value="#{item2.userName}" />
+	                </p:column>
+	 
+	                <p:column headerText="Year">
+	                    <h:outputText value="#{item2.nombre}" />
+	                </p:column>
+	 
+	                <p:column headerText="Brand">
+	                    <h:outputText value="#{item2.apellidos}" />
+	                </p:column>
+	 
+	                <p:column headerText="Color">
+	                    <h:outputText value="#{item2.status}" />
+	                </p:column>
+	 
+	                <p:column style="width:32px">
+	                    <p:commandButton update=":gameForm:display" oncomplete="PF('gameDialog').show()" icon="pi pi-search">
+	                        <f:setPropertyActionListener value="#{game}" target="#{gamesManagedBean.selectedGame}" />
+	                    </p:commandButton>
+	                </p:column>
+	            </p:dataTable>
+	        </p:outputPanel>
+	    </p:fieldset>
+	 
+	    <p:droppable for="selectedGames" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableGames" onDrop="handleDrop">
+	        <p:ajax listener="#{gamesManagedBean.onGamesDrop}" update="dropArea availableGames" />
+	    </p:droppable>
+	 
+	    <p:dialog header="Game Detail" widgetVar="gameDialog" resizable="false" draggable="false"
+	              showEffect="fade" hideEffect="fade" modal="true">
+	 
+	        <p:outputPanel id="display">
+	            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty gamesManagedBean.selectedGame}">
+	                <f:facet name="header">
+	                    <p:graphicImage value="/../../../images/#{item.nombre}"/>
+	                </f:facet>
+	 
+	                <h:outputText value="Id" />
+	                <h:outputText value="#{gamesManagedBean.selectedGame.nombre}" style="font-weight:bold"/>
+	 
+	                <h:outputText value="Year:" />
+	                <h:outputText value="#{gamesManagedBean.selectedGame.nombre}" style="font-weight:bold"/>
+	 
+	                <h:outputText value="Brand" />
+	                <h:outputText value="#{gamesManagedBean.selectedGame.nombre}" style="font-weight:bold"/>
+	 
+	                <h:outputText value="Color:" />
+	                <h:outputText value="#{gamesManagedBean.selectedGame.nombre}" style="font-weight:bold"/>
+	            </h:panelGrid>
+	        </p:outputPanel>
+	    </p:dialog>
+	</h:form>
 
 		
 		

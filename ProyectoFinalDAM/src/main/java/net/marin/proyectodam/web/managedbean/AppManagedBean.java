@@ -8,6 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+
+import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
@@ -42,6 +44,10 @@ public class AppManagedBean extends GenericManagedBean {
 	private List<AppUserDTO> listAppUserDTO;
 	private String userNameToDelete;
 	private List<AppUserDTO> listAppUserSelected;
+	
+	
+	//
+	private List<AppUserDTO> droppedGames;
 	
 	@Autowired
 	private PasswordEncoder encoder;//Security se usa para encriptar el pass
@@ -263,7 +269,26 @@ public class AppManagedBean extends GenericManagedBean {
 		session.invalidate();
 		logeado = false;
 	}
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	//Metodos del la s galerias
+	public void onGameDrop(DragDropEvent ddEvent) {
+        AppUserDTO game = ((AppUserDTO) ddEvent.getData());
+  
+        droppedGames.add(game);
+        listAppUserDTO.remove(game);
+    }
+     /*
+    public void setService(CarService service) {
+        this.service = service;
+    }*/
+ 
+    public List<AppUserDTO> getGames;
+ 
+    public void setSelectedGame(AppUserDTO managedBeanUserDTO) {
+        this.managedBeanUserDTO = managedBeanUserDTO;
+    }
 	
+	///////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public boolean findOne(String userName) {
 		//showInfoMessage("Pa", "Mostrando lista Usuarios");
 		
