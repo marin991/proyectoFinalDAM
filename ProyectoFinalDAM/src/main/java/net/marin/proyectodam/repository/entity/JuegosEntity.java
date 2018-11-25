@@ -2,10 +2,14 @@ package net.marin.proyectodam.repository.entity;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,6 +25,8 @@ public class JuegosEntity implements Serializable{
 	String nombre;
 	int año;
 	String imagen;
+	
+	private Set<PlataformasEntity> plataformasEntity;
 	
 	public JuegosEntity() {
 		super();
@@ -67,5 +73,21 @@ public class JuegosEntity implements Serializable{
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
+	
+	@ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            },mappedBy = "juegosEntity")
+	public Set<PlataformasEntity> getPlataformasEntity() {
+		return plataformasEntity;
+	}
 
+	public void setPlataformasEntity(Set<PlataformasEntity> plataformasEntity) {
+		this.plataformasEntity = plataformasEntity;
+	}
+	
+	
+	
+	
 }
