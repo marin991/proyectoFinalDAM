@@ -26,11 +26,6 @@ public class VideojuegosPlataformasEntity implements Serializable{
 		super();
 	}
 	
-	public VideojuegosPlataformasEntity(int idVideojuego) {
-		this.idVideojuego= idVideojuego;
-		//appRoleEntities = new HashSet<AppRoleEntity>();//new HashSet<UserRoleEntity>();
-	}
-	
 	@Id
 	@Column(name = "VIDEOJUEGOS_ID_VIDEOJUEGOS")
 	public int getIdVideojuego() {

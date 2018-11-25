@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import net.marin.proyectodam.repository.entity.CategoriasEntity;
+
 @Entity
-@Table(name = "VIDEOJUEGOS")
+@Table(name = "VIDEOJUEGOS23")
 public class JuegosEntity implements Serializable{
 
 	/**
@@ -26,7 +28,11 @@ public class JuegosEntity implements Serializable{
 	int año;
 	String imagen;
 	
+	
 	private Set<PlataformasEntity> plataformasEntity;
+	
+	//private Set<CategoriasEntity> categoriasEntity;
+
 	
 	public JuegosEntity() {
 		super();
@@ -34,7 +40,9 @@ public class JuegosEntity implements Serializable{
 	
 	public JuegosEntity(int idVideojuego) {
 		this.idVideojuego= idVideojuego;
-		//appRoleEntities = new HashSet<AppRoleEntity>();//new HashSet<UserRoleEntity>();
+		//categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
+		plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
+
 	}
 	
 	@Id//Indica que columna es una PK de SQL
@@ -45,6 +53,9 @@ public class JuegosEntity implements Serializable{
 
 	public void setIdVideojuego(int idVideojuego) {
 		this.idVideojuego = idVideojuego;
+	//	categoriasEntity = new HashSet<CategoriasEntity>();
+		plataformasEntity = new HashSet<PlataformasEntity>();
+
 	}
 	
 	@Column(name = "NOMBRE")
@@ -74,11 +85,15 @@ public class JuegosEntity implements Serializable{
 		this.imagen = imagen;
 	}
 	
-	@ManyToMany(fetch = FetchType.EAGER,
+	public void addUserRoleEntities(PlataformasEntity plataformasEntity) {
+		this.plataformasEntity.add(plataformasEntity);//add(userRoleEntity);
+	}
+	
+	@ManyToMany(fetch = FetchType.LAZY,
             cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
-            },mappedBy = "juegosEntity")
+            },mappedBy = "juegosEntityPlat")
 	public Set<PlataformasEntity> getPlataformasEntity() {
 		return plataformasEntity;
 	}
@@ -86,8 +101,5 @@ public class JuegosEntity implements Serializable{
 	public void setPlataformasEntity(Set<PlataformasEntity> plataformasEntity) {
 		this.plataformasEntity = plataformasEntity;
 	}
-	
-	
-	
 	
 }

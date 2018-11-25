@@ -15,10 +15,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "PLATAFORMAS")
-public class PlataformasEntity implements Serializable{
+@Table(name = "CATEGORIAS")
+public class CategoriasEntity implements Serializable{
 	
-
 	/**
 	 * 
 	 */
@@ -27,54 +26,44 @@ public class PlataformasEntity implements Serializable{
 	int idPlataforma;
 	String nombre;
 	
-	Set<JuegosEntity> juegosEntityPlat;
-
-	
-	public PlataformasEntity() {
-		super();
-	}
-	
-	public PlataformasEntity(int idPlataforma) {
-		this.idPlataforma= idPlataforma;
-		juegosEntityPlat = new HashSet<JuegosEntity>();//new HashSet<UserRoleEntity>();
-	}
+	Set<JuegosEntity> juegosEntity;
 	
 	@Id//Indica que columna es una PK de SQL
 	@Column(name = "ID_PLATAFORMAS")//Asignamos la variabe del getter a esta columna de la tabla
 	public int getIdPlataforma() {
 		return idPlataforma;
 	}
-
 	public void setIdPlataforma(int idPlataforma) {
 		this.idPlataforma = idPlataforma;
+		juegosEntity = new HashSet<JuegosEntity>();
 	}
 	
-	
-	@Column(name = "NOMBRE")//Asignamos la variabe del getter a esta columna de la tabla
+	@Column(name = "NOMBRE")
 	public String getNombre() {
 		return nombre;
 	}
-
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
-
 	
-	@ManyToMany(fetch = FetchType.LAZY,
+	
+	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                 CascadeType.PERSIST
             })
-	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_PLATAFORMAS23",//Nombre tabla N:N
-     joinColumns = { @JoinColumn(name = "ID_PLATAFORMAS") },//Columna de la tabla pertenecieente a esta entity
-     inverseJoinColumns = { @JoinColumn(name = "ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL 
-	public Set<JuegosEntity> getJuegosEntityPlat() {
-		return juegosEntityPlat;
+	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_CATEGORIAS",//Nombre tabla N:N
+     joinColumns = { @JoinColumn(name = "CATEGORIAS_ID_CATEGORIAS") },//Columna de la tabla pertenecieente a esta entity
+     inverseJoinColumns = { @JoinColumn(name = "VIDEOJUEGOS_ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL
+	public Set<JuegosEntity> getJuegosEntity() {
+		return juegosEntity;
 	}
+	public void setJuegosEntity(Set<JuegosEntity> juegosEntity) {
+		this.juegosEntity = juegosEntity;
+	}
+	
+	
+	
+	
 
-	public void setJuegosEntityPlat(Set<JuegosEntity> juegosEntityPlat) {
-		this.juegosEntityPlat = juegosEntityPlat;
-	}
-	
-	
 
 }
