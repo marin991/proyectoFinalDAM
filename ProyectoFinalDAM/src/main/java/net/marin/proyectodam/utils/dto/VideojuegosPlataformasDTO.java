@@ -1,22 +1,21 @@
 package net.marin.proyectodam.utils.dto;
 
-public class PlataformasDTO {
+public class VideojuegosPlataformasDTO {
 	
+	int idVideojuego;
 	int idPlataforma;
-	String nombre;
 	
-	
+	public int getIdVideojuego() {
+		return idVideojuego;
+	}
+	public void setIdVideojuego(int idVideojuego) {
+		this.idVideojuego = idVideojuego;
+	}
 	public int getIdPlataforma() {
 		return idPlataforma;
 	}
 	public void setIdPlataforma(int idPlataforma) {
 		this.idPlataforma = idPlataforma;
 	}
-	public String getNombre() {
-		return nombre;
-	}
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
-		
+	
 }
