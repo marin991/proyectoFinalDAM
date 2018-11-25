@@ -1,54 +1,64 @@
 package net.marin.proyectodam.utils.dto;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.view.ViewScoped;
 
+import net.marin.proyectodam.repository.entity.AppUserEntity;
+
 @ManagedBean(name = "juegosDTO")
 @ViewScoped
 public class JuegosDTO implements Serializable {
   
-   // @ManagedProperty("#{carService}")
-  /*  private CarService service;
- 
-    private List<Car> cars;
-     
-    private List<Car> droppedCars;
-     
-    private Car selectedCar;*/
-     
-   // @PostConstruct
-   /* public void init() {
-        cars = service.createCars(9);
-        droppedCars = new ArrayList<Car>();
-    }
-     
-    public void onCarDrop(DragDropEvent ddEvent) {
-        Car car = ((Car) ddEvent.getData());
-  
-        droppedCars.add(car);
-        cars.remove(car);
-    }
-     
-    public void setService(CarService service) {
-        this.service = service;
-    }
- 
-    public List<Car> getCars() {
-        return cars;
-    }
- 
-    public List<Car> getDroppedCars() {
-        return droppedCars;
-    }    
- 
-    public Car getSelectedCar() {
-        return selectedCar;
-    }
- 
-    public void setSelectedCar(Car selectedCar) {
-        this.selectedCar = selectedCar;
-    }*/
+
+	/*
+	 * Declaramos las variables
+	 */
+	int idVideojuego;
+	String nombre;
+	int año;
+	String imagen;
+	
+	
+	//CONSTRUCTOR
+	
+	public JuegosDTO() {
+		super();
+	}
+
+	public int getIdVideojuego() {
+		return idVideojuego;
+	}
+
+	public void setIdVideojuego(int idVideojuego) {
+		this.idVideojuego = idVideojuego;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public int getAño() {
+		return año;
+	}
+
+	public void setAño(int año) {
+		this.año = año;
+	}
+
+	public String getImagen() {
+		return imagen;
+	}
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
 }
