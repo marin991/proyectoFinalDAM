@@ -26,16 +26,26 @@ public class CategoriasEntity implements Serializable{
 	int idPlataforma;
 	String nombre;
 	
-	Set<JuegosEntity> juegosEntity;
+	Set<JuegosEntity> juegosEntityCat;
+	
+
+	public CategoriasEntity() {
+		super();
+	}
+	
+	public CategoriasEntity(int idPlataforma) {
+		this.idPlataforma= idPlataforma;
+		juegosEntityCat = new HashSet<JuegosEntity>();//new HashSet<UserRoleEntity>();
+	}
 	
 	@Id//Indica que columna es una PK de SQL
-	@Column(name = "ID_PLATAFORMAS")//Asignamos la variabe del getter a esta columna de la tabla
+	@Column(name = "ID_CATEGORIAS")//Asignamos la variabe del getter a esta columna de la tabla
 	public int getIdPlataforma() {
 		return idPlataforma;
 	}
 	public void setIdPlataforma(int idPlataforma) {
 		this.idPlataforma = idPlataforma;
-		juegosEntity = new HashSet<JuegosEntity>();
+		juegosEntityCat = new HashSet<JuegosEntity>();
 	}
 	
 	@Column(name = "NOMBRE")
@@ -52,18 +62,14 @@ public class CategoriasEntity implements Serializable{
                 CascadeType.PERSIST
             })
 	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_CATEGORIAS",//Nombre tabla N:N
-     joinColumns = { @JoinColumn(name = "CATEGORIAS_ID_CATEGORIAS") },//Columna de la tabla pertenecieente a esta entity
-     inverseJoinColumns = { @JoinColumn(name = "VIDEOJUEGOS_ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL
-	public Set<JuegosEntity> getJuegosEntity() {
-		return juegosEntity;
-	}
-	public void setJuegosEntity(Set<JuegosEntity> juegosEntity) {
-		this.juegosEntity = juegosEntity;
+     joinColumns = { @JoinColumn(name = "ID_CATEGORIAS") },//Columna de la tabla pertenecieente a esta entity
+     inverseJoinColumns = { @JoinColumn(name = "ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL
+	public Set<JuegosEntity> getjuegosEntityCat() {
+		return juegosEntityCat;
 	}
 	
+	public void setjuegosEntityCat(Set<JuegosEntity> juegosEntityCat) {
+		this.juegosEntityCat = juegosEntityCat;
+	}
 	
-	
-	
-
-
 }

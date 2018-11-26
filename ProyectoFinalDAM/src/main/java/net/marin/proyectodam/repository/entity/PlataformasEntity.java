@@ -28,6 +28,8 @@ public class PlataformasEntity implements Serializable{
 	String nombre;
 	
 	Set<JuegosEntity> juegosEntityPlat;
+	
+	
 
 	
 	public PlataformasEntity() {
@@ -60,11 +62,11 @@ public class PlataformasEntity implements Serializable{
 	}
 
 	
-	@ManyToMany(fetch = FetchType.LAZY,
+	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                 CascadeType.PERSIST
             })
-	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_PLATAFORMAS23",//Nombre tabla N:N
+	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_PLATAFORMAS",//Nombre tabla N:N
      joinColumns = { @JoinColumn(name = "ID_PLATAFORMAS") },//Columna de la tabla pertenecieente a esta entity
      inverseJoinColumns = { @JoinColumn(name = "ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL 
 	public Set<JuegosEntity> getJuegosEntityPlat() {
@@ -74,7 +76,5 @@ public class PlataformasEntity implements Serializable{
 	public void setJuegosEntityPlat(Set<JuegosEntity> juegosEntityPlat) {
 		this.juegosEntityPlat = juegosEntityPlat;
 	}
-	
-	
-
+		
 }

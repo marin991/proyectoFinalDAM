@@ -10,12 +10,13 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import net.marin.proyectodam.repository.entity.CategoriasEntity;
 
 @Entity
-@Table(name = "VIDEOJUEGOS23")
+@Table(name = "VIDEOJUEGOS")
 public class JuegosEntity implements Serializable{
 
 	/**
@@ -31,7 +32,9 @@ public class JuegosEntity implements Serializable{
 	
 	private Set<PlataformasEntity> plataformasEntity;
 	
-	//private Set<CategoriasEntity> categoriasEntity;
+	private Set<CategoriasEntity> categoriasEntity;
+	
+	private Set<UsuarioValoraEntity> usuarioValoraEntites;
 
 	
 	public JuegosEntity() {
@@ -40,7 +43,7 @@ public class JuegosEntity implements Serializable{
 	
 	public JuegosEntity(int idVideojuego) {
 		this.idVideojuego= idVideojuego;
-		//categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
+		categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
 		plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
 
 	}
@@ -53,7 +56,7 @@ public class JuegosEntity implements Serializable{
 
 	public void setIdVideojuego(int idVideojuego) {
 		this.idVideojuego = idVideojuego;
-	//	categoriasEntity = new HashSet<CategoriasEntity>();
+		categoriasEntity = new HashSet<CategoriasEntity>();
 		plataformasEntity = new HashSet<PlataformasEntity>();
 
 	}
@@ -97,9 +100,34 @@ public class JuegosEntity implements Serializable{
 	public Set<PlataformasEntity> getPlataformasEntity() {
 		return plataformasEntity;
 	}
-
+		
 	public void setPlataformasEntity(Set<PlataformasEntity> plataformasEntity) {
 		this.plataformasEntity = plataformasEntity;
 	}
+	
+	@ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            },mappedBy = "juegosEntityCat")
+	public Set<CategoriasEntity> getCategoriasEntity() {
+		return categoriasEntity;
+	}
+
+	public void setCategoriasEntity(Set<CategoriasEntity> categoriasEntity) {
+		this.categoriasEntity = categoriasEntity;
+	}
+	
+	@OneToMany(mappedBy = "juego")
+	public Set<UsuarioValoraEntity> getUsuarioValoraEntites() {
+		return usuarioValoraEntites;
+	}
+
+	public void setUsuarioValoraEntites(Set<UsuarioValoraEntity> usuarioValoraEntites) {
+		this.usuarioValoraEntites = usuarioValoraEntites;
+	}
+	
+
+	
 	
 }

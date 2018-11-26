@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
@@ -28,6 +29,8 @@ public class AppUserEntity implements Serializable{
 	String status;
 	int firstVisit ;
 	private Set<AppRoleEntity> appRoleEntities ;//= new HashSet<UserRoleEntity>();
+	
+	private Set<UsuarioValoraEntity> usuarioValoraEntites;
 	
 	//CONSTRUCTORES
 	
@@ -127,5 +130,15 @@ public class AppUserEntity implements Serializable{
 	        u.appUserEntities.remove(this);
 	    }
 	}
+	
+	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
+	public Set<UsuarioValoraEntity> getUsuarioValoraEntites() {
+		return usuarioValoraEntites;
+	}
+	public void setUsuarioValoraEntites(Set<UsuarioValoraEntity> usuarioValoraEntites) {
+		this.usuarioValoraEntites = usuarioValoraEntites;
+	}
+	
+	
 	
 }
