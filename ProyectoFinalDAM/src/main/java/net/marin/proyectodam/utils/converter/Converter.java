@@ -122,7 +122,7 @@ public class Converter {
 		//Metodos para los objetos y entidades JuegoCategoria	
 		public static VideojuegosPlataformasEntity juegoPlatDTOtoJuegoPlatEntity(VideojuegosPlataformasDTO juegoPlatDTO) {
 			VideojuegosPlataformasEntity juegoPlatEntity = new VideojuegosPlataformasEntity();
-			juegoPlatEntity.setIdVideojuego(juegoPlatEntity.getIdVideojuego());
+			juegoPlatEntity.setIdVideojuego(juegoPlatDTO.getIdVideojuego());
 			juegoPlatEntity.setIdPlataforma(juegoPlatDTO.getIdPlataforma());
 			return juegoPlatEntity;
 		}

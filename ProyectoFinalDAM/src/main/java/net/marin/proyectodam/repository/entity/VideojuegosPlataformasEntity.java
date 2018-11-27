@@ -27,7 +27,7 @@ public class VideojuegosPlataformasEntity implements Serializable{
 	}
 	
 	@Id
-	@Column(name = "VIDEOJUEGOS_ID_VIDEOJUEGOS")
+	@Column(name = "ID_VIDEOJUEGOS")
 	public int getIdVideojuego() {
 		return idVideojuego;
 	}
@@ -36,7 +36,7 @@ public class VideojuegosPlataformasEntity implements Serializable{
 	}
 	
 	@Id
-	@Column(name = "PLATAFORMAS_ID_PLATAFORMAS")
+	@Column(name = "ID_PLATAFORMAS")
 	public int getIdPlataforma() {
 		return idPlataforma;
 	}

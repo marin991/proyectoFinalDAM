@@ -47,13 +47,14 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     @PostConstruct
     public void init() {
     	managedJuegoDTO = new JuegoDTO();
+    	managedPlataformaDTO = new VideojuegosPlataformasDTO();
+    	managedCategoriaDTO = new VideojuegosCategoriasDTO();
     	System.out.println("\n gamessss");
         games = userService.findAllGames();
         droppedGames = new ArrayList<JuegoDTO>();
     }
     
     public void newGame() {
-		
 		
 		try {
 			userService.newJuego(managedJuegoDTO);
@@ -65,11 +66,11 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 	}
     
     public void newCategory() {
-		
+    	
     	managedCategoriaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
 		try {
-			userService.newCategory(managedCategoriaDTO);
 			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
+			userService.newCategory(managedCategoriaDTO);
 		}
 		catch (Exception e) {
 			showErrorMessage("Error ", e.getMessage());
@@ -79,6 +80,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		
     	managedPlataformaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
 		try {
+			System.out.println("managedPlataformaDTO.getIdVideojuego()"+managedPlataformaDTO.getIdVideojuego());
 			userService.newPlatform(managedPlataformaDTO);
 			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
 		}
@@ -86,7 +88,12 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 			showErrorMessage("Error ", e.getMessage());
 		}
 	}
-     
+    public void newGameAndCategory() {
+    	
+    	newGame();
+    	newCategory();
+    	newPlatform();
+    }
     public void onGamesDrop(DragDropEvent ddEvent) {
         JuegoDTO game = ((JuegoDTO) ddEvent.getData());
   
@@ -136,6 +143,22 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 
 	public void setDroppedGames(List<JuegoDTO> droppedGames) {
 		this.droppedGames = droppedGames;
+	}
+
+	public VideojuegosPlataformasDTO getManagedPlataformaDTO() {
+		return managedPlataformaDTO;
+	}
+
+	public void setManagedPlataformaDTO(VideojuegosPlataformasDTO managedPlataformaDTO) {
+		this.managedPlataformaDTO = managedPlataformaDTO;
+	}
+
+	public VideojuegosCategoriasDTO getManagedCategoriaDTO() {
+		return managedCategoriaDTO;
+	}
+
+	public void setManagedCategoriaDTO(VideojuegosCategoriasDTO managedCategoriaDTO) {
+		this.managedCategoriaDTO = managedCategoriaDTO;
 	}
     
     

@@ -31,7 +31,7 @@ public class VideoJuegosCategoriasEntity implements Serializable{
 	}
 	
 	@Id
-	@Column(name = "VIDEOJUEGOS_ID_VIDEOJUEGOS")
+	@Column(name = "ID_VIDEOJUEGOS")
 	public int getIdVideojuego() {
 		return idVideojuego;
 	}
@@ -40,7 +40,7 @@ public class VideoJuegosCategoriasEntity implements Serializable{
 	}
 	
 	@Id
-	@Column(name = "CATEGORIAS_ID_CATEGORIAS")
+	@Column(name = "ID_CATEGORIAS")
 	public int getIdCategorias() {
 		return idCategorias;
 	}

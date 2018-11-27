@@ -1,0 +1,43 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	template="/layout/templateAdmin.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			<p:panel header="Crear Usuario">
+				<h:panelGrid columns="2" cellpadding="3">
+					<h:outputLabel for="idVideojuego" value="idVideojuego:" />
+					<p:inputText id="idVideojuego"
+						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" label="idVideojuego" />
+					
+					<h:outputLabel for="nombre" value="Nombre:" />
+					<p:inputText id="nombre"
+						value="#{gamesManagedBean.managedJuegoDTO.nombre}" label="Nombre" />
+
+					<h:outputLabel for="año" value="Año:" />
+					<p:inputText id="año"
+						value="#{gamesManagedBean.managedJuegoDTO.año}" />
+					
+						
+					<h:outputLabel for="imagen" value="Imagen:" />
+					<p:inputText id="imagen"
+						value="#{gamesManagedBean.managedJuegoDTO.imagen}" />		
+					
+					<h:outputLabel for="categoria" value="Categoria:" />
+					<p:inputText id="categoria"
+						value="#{gamesManagedBean.managedCategoriaDTO.idCategorias}" />
+					
+						<h:outputLabel for="plataforma" value="Plataforma:" />
+					<p:inputText id="plataforma"
+						value="#{gamesManagedBean.managedPlataformaDTO.idPlataforma}" />	
+		
+				</h:panelGrid>
+				<p:commandButton value="Guardar" ajax="false" icon="ui-icon-check"
+					validateClient="true" action="#{gamesManagedBean.newGameAndCategory()}" />
+			</p:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

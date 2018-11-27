@@ -23,7 +23,7 @@ public class CategoriasEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	int idPlataforma;
+	int idCategoria;
 	String nombre;
 	
 	Set<JuegoEntity> juegosEntityCat;
@@ -33,18 +33,18 @@ public class CategoriasEntity implements Serializable{
 		super();
 	}
 	
-	public CategoriasEntity(int idPlataforma) {
-		this.idPlataforma= idPlataforma;
+	public CategoriasEntity(int idCategoria) {
+		this.idCategoria= idCategoria;
 		juegosEntityCat = new HashSet<JuegoEntity>();//new HashSet<UserRoleEntity>();
 	}
 	
 	@Id//Indica que columna es una PK de SQL
 	@Column(name = "ID_CATEGORIAS")//Asignamos la variabe del getter a esta columna de la tabla
-	public int getIdPlataforma() {
-		return idPlataforma;
+	public int getidCategoria() {
+		return idCategoria;
 	}
-	public void setIdPlataforma(int idPlataforma) {
-		this.idPlataforma = idPlataforma;
+	public void setidCategoria(int idCategoria) {
+		this.idCategoria = idCategoria;
 		juegosEntityCat = new HashSet<JuegoEntity>();
 	}
 	
