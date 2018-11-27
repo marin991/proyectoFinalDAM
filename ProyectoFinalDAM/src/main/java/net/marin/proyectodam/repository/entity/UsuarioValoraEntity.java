@@ -18,7 +18,7 @@ public class UsuarioValoraEntity implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 		
-	private JuegosEntity juego;
+	private JuegoEntity juego;
 	
 	private AppUserEntity usuario;
 	
@@ -30,10 +30,10 @@ public class UsuarioValoraEntity implements Serializable{
 	@Id//Indica que columna es una PK de SQL
 	@ManyToOne
 	@JoinColumn(name = "ID_VIDEOJUEGOS")//Asignamos la variabe del getter a esta columna de la tabla
-	public JuegosEntity getJuego() {
+	public JuegoEntity getJuego() {
 		return juego;
 	}
-	public void setJuego(JuegosEntity juego) {
+	public void setJuego(JuegoEntity juego) {
 		this.juego = juego;
 	}
 	

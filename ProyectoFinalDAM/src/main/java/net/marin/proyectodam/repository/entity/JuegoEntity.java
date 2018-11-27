@@ -17,7 +17,7 @@ import net.marin.proyectodam.repository.entity.CategoriasEntity;
 
 @Entity
 @Table(name = "VIDEOJUEGOS")
-public class JuegosEntity implements Serializable{
+public class JuegoEntity implements Serializable{
 
 	/**
 	 * 
@@ -37,11 +37,11 @@ public class JuegosEntity implements Serializable{
 	private Set<UsuarioValoraEntity> usuarioValoraEntites;
 
 	
-	public JuegosEntity() {
+	public JuegoEntity() {
 		super();
 	}
 	
-	public JuegosEntity(int idVideojuego) {
+	public JuegoEntity(int idVideojuego) {
 		this.idVideojuego= idVideojuego;
 		categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
 		plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();

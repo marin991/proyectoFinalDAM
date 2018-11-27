@@ -7,13 +7,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import net.marin.proyectodam.repository.AppUserRepository;
+import net.marin.proyectodam.repository.JuegoCatRepository;
+import net.marin.proyectodam.repository.JuegoRepository;
+import net.marin.proyectodam.repository.JuegosPlatRepository;
 import net.marin.proyectodam.repository.UserRoleRepository;
 import net.marin.proyectodam.repository.entity.AppUserEntity;
+import net.marin.proyectodam.repository.entity.JuegoEntity;
 import net.marin.proyectodam.repository.entity.UserRoleEntity;
+import net.marin.proyectodam.repository.entity.VideoJuegosCategoriasEntity;
+import net.marin.proyectodam.repository.entity.VideojuegosPlataformasEntity;
 import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.converter.Converter;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
+import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.UserRoleDTO;
+import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
+import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 
 //Clase con metodos de persistencia Jpa comunica las difernetes repositorios de las entidades a traves de la interfaz
 @Service
@@ -24,7 +33,14 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	UserRoleRepository userRoleRepository;
 	@Autowired
+	JuegoRepository juegoRepository;
+	@Autowired
+	JuegoCatRepository cetegoriaRepository;
+	@Autowired
+	JuegosPlatRepository plataformaRepository;
+	@Autowired
 	private BCryptPasswordEncoder encoder;//Security se usa para encriptar el pass
+	
 	
 	//CONSTRUCTOR
 	public UserServiceImpl() {
@@ -55,6 +71,32 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
+	//Crea nuevos roles en la BBDD
+	@Override
+	public void newJuego(JuegoDTO juegoDTO) throws Exception {
+	
+		JuegoEntity juegoEntity = Converter.juegoDTOtoJuegoEntity(juegoDTO);	
+		juegoRepository.save(juegoEntity);
+		
+	
+	}
+	@Override
+	public void newCategory(VideojuegosCategoriasDTO juegoCatDTO) throws Exception {
+	
+		VideoJuegosCategoriasEntity juegoCatEntity = Converter.juegoCatDTOtoJuegoCatEntity(juegoCatDTO);	
+		cetegoriaRepository.save(juegoCatEntity);
+		
+	
+	}
+	@Override
+	public void newPlatform(VideojuegosPlataformasDTO juegoCatDTO) throws Exception {
+	
+		VideojuegosPlataformasEntity juegoPlatEntity = Converter.juegoPlatDTOtoJuegoPlatEntity(juegoCatDTO);	
+		plataformaRepository.save(juegoPlatEntity);
+		
+	
+	}
+	
 	//Devuelve un list con todos los usuarios de la BBDD
 	@Override
 	public List<AppUserDTO> findAll() {
@@ -65,6 +107,20 @@ public class UserServiceImpl implements UserService {
 		//tenemos que convertirlo en una lista de tipo UserDTO
 		List<AppUserDTO> listAppUserDTO = Converter.listAppUserEntityToListUserDTO(listAppUserEntity);
 		return listAppUserDTO;
+		
+		// Lo ideal es sustiuir las dos lineas anteriores por: (lo dejamos así para que no se pierdan)
+		// return Converter.listUserEntityToListUserDTO(listUserEntity);
+	}
+	
+	@Override
+	public List<JuegoDTO> findAllGames() {
+		
+		//buscamos en la base de datos todos los registros de la tabla
+		List<JuegoEntity> listAppUserEntity = juegoRepository.findAll();
+		//Como lo que nos devolvio fue todo una lista de tipo UserEntity
+		//tenemos que convertirlo en una lista de tipo UserDTO
+		List<JuegoDTO> listJuegoDTO = Converter.listJuegoEntityToListJuegoDTO(listAppUserEntity);
+		return listJuegoDTO;
 		
 		// Lo ideal es sustiuir las dos lineas anteriores por: (lo dejamos así para que no se pierdan)
 		// return Converter.listUserEntityToListUserDTO(listUserEntity);

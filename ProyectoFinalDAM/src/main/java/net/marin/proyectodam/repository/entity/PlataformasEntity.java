@@ -27,7 +27,7 @@ public class PlataformasEntity implements Serializable{
 	int idPlataforma;
 	String nombre;
 	
-	Set<JuegosEntity> juegosEntityPlat;
+	Set<JuegoEntity> juegosEntityPlat;
 	
 	
 
@@ -38,7 +38,7 @@ public class PlataformasEntity implements Serializable{
 	
 	public PlataformasEntity(int idPlataforma) {
 		this.idPlataforma= idPlataforma;
-		juegosEntityPlat = new HashSet<JuegosEntity>();//new HashSet<UserRoleEntity>();
+		juegosEntityPlat = new HashSet<JuegoEntity>();//new HashSet<UserRoleEntity>();
 	}
 	
 	@Id//Indica que columna es una PK de SQL
@@ -69,11 +69,11 @@ public class PlataformasEntity implements Serializable{
 	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_PLATAFORMAS",//Nombre tabla N:N
      joinColumns = { @JoinColumn(name = "ID_PLATAFORMAS") },//Columna de la tabla pertenecieente a esta entity
      inverseJoinColumns = { @JoinColumn(name = "ID_VIDEOJUEGOS") })//Columna de la otra entidad presente en la tabla SQL 
-	public Set<JuegosEntity> getJuegosEntityPlat() {
+	public Set<JuegoEntity> getJuegosEntityPlat() {
 		return juegosEntityPlat;
 	}
 
-	public void setJuegosEntityPlat(Set<JuegosEntity> juegosEntityPlat) {
+	public void setJuegosEntityPlat(Set<JuegoEntity> juegosEntityPlat) {
 		this.juegosEntityPlat = juegosEntityPlat;
 	}
 		

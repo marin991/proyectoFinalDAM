@@ -14,6 +14,10 @@ import org.springframework.stereotype.Component;
 
 import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
+import net.marin.proyectodam.utils.dto.JuegoDTO;
+import net.marin.proyectodam.utils.dto.PlataformasDTO;
+import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
+import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 
 @ManagedBean(name = "gamesManagedBean")
 @Component
@@ -26,24 +30,65 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 	
 	
 	@ManagedProperty("#{gameService}")
+	
 	@Autowired
 	UserService userService;
     
-    private List<AppUserDTO> games;
+	JuegoDTO managedJuegoDTO;
+	VideojuegosPlataformasDTO managedPlataformaDTO;
+	VideojuegosCategoriasDTO managedCategoriaDTO;
+	
+    private List<JuegoDTO> games;
      
-    private List<AppUserDTO> droppedGames;
+    private List<JuegoDTO> droppedGames;
      
-    private AppUserDTO selectedGame;
+    private JuegoDTO selectedGame;
      
     @PostConstruct
     public void init() {
+    	managedJuegoDTO = new JuegoDTO();
     	System.out.println("\n gamessss");
-        games = userService.findAll();
-        droppedGames = new ArrayList<AppUserDTO>();
+        games = userService.findAllGames();
+        droppedGames = new ArrayList<JuegoDTO>();
     }
+    
+    public void newGame() {
+		
+		
+		try {
+			userService.newJuego(managedJuegoDTO);
+			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
+		}
+		catch (Exception e) {
+			showErrorMessage("Error ", e.getMessage());
+		}
+	}
+    
+    public void newCategory() {
+		
+    	managedCategoriaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
+		try {
+			userService.newCategory(managedCategoriaDTO);
+			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
+		}
+		catch (Exception e) {
+			showErrorMessage("Error ", e.getMessage());
+		}
+	}
+    public void newPlatform() {
+		
+    	managedPlataformaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
+		try {
+			userService.newPlatform(managedPlataformaDTO);
+			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
+		}
+		catch (Exception e) {
+			showErrorMessage("Error ", e.getMessage());
+		}
+	}
      
     public void onGamesDrop(DragDropEvent ddEvent) {
-        AppUserDTO game = ((AppUserDTO) ddEvent.getData());
+        JuegoDTO game = ((JuegoDTO) ddEvent.getData());
   
         droppedGames.add(game);
         games.remove(game);
@@ -53,19 +98,45 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
         this.userService = userService;
     }
  
-    public List<AppUserDTO> getGames() {
+    public List<JuegoDTO> getGames() {
         return games;
     }
  
-    public List<AppUserDTO> getDroppedGames() {
+    public List<JuegoDTO> getDroppedGames() {
         return droppedGames;
     }    
  
-    public AppUserDTO getSelectedGame() {
+    public JuegoDTO getSelectedGame() {
         return selectedGame;
     }
  
-    public void setSelectedGame(AppUserDTO selectedGame) {
+    public void setSelectedGame(JuegoDTO selectedGame) {
         this.selectedGame = selectedGame;
     }
+
+	public UserService getUserService() {
+		return userService;
+	}
+
+	public void setUserService(UserService userService) {
+		this.userService = userService;
+	}
+
+	public JuegoDTO getManagedJuegoDTO() {
+		return managedJuegoDTO;
+	}
+
+	public void setManagedJuegoDTO(JuegoDTO managedJuegoDTO) {
+		this.managedJuegoDTO = managedJuegoDTO;
+	}
+
+	public void setGames(List<JuegoDTO> games) {
+		this.games = games;
+	}
+
+	public void setDroppedGames(List<JuegoDTO> droppedGames) {
+		this.droppedGames = droppedGames;
+	}
+    
+    
 }

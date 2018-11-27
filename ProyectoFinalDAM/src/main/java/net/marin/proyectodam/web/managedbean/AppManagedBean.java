@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import net.marin.proyectodam.repository.entity.AppRoleEntity;
 import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
+import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.UserRoleDTO;
 
 @ManagedBean(name="appManagedBean")
@@ -45,6 +46,8 @@ public class AppManagedBean extends GenericManagedBean {
 	private String userNameToDelete;
 	private List<AppUserDTO> listAppUserSelected;
 	
+	
+	private JuegoDTO juegoDTO;
 	
 	//
 	private List<AppUserDTO> droppedGames;
