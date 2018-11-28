@@ -160,6 +160,19 @@ public class UserServiceImpl implements UserService {
 			System.out.println("UserRol inexiste");
 		}
 	}
+	
+	@Override
+	@Transactional
+	public void deleteGame(int gameToDelete) {
+		
+		if (juegoRepository.existsById(gameToDelete)) {			// Si el usuario existe, lo borra
+			
+			juegoRepository.deleteById(gameToDelete);
+			
+		} else {
+			System.out.println("UserRol inexiste");
+		}
+	}
 
 	//Metodo que modifica UserRole en la BBDD
 	@Override
@@ -182,6 +195,16 @@ public class UserServiceImpl implements UserService {
 	
 	//Metodo que modifica usuarios en la BBDD
 	@Override
+	public void updateGame(JuegoDTO juegoDTOToUpdate) throws Exception {
+		if (juegoRepository.existsById(juegoDTOToUpdate.getIdVideojuego())) {
+			juegoRepository.save(Converter.juegoDTOtoJuegoEntity(juegoDTOToUpdate));
+			
+		} else {
+			System.out.println("El juego a modificar no existe.");
+			
+		}
+	}
+	@Override
 	public void updateAppUser(AppUserDTO appUserDTOToUpdate) throws Exception {
 		if (appUserRepository.existsById(appUserDTOToUpdate.getUserName())) {
 			appUserRepository.save(Converter.appUserDTOtoUserEntity(appUserDTOToUpdate));
@@ -191,7 +214,6 @@ public class UserServiceImpl implements UserService {
 			
 		}
 	}
-	
 	//Metodo que devuelve un user dto (creo un objeto vacio por que es un metodo raro que devuelve un obejto vacio)
 	@Override
 	public AppUserDTO login(String userName) {

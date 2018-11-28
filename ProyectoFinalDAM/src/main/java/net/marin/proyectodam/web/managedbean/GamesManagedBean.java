@@ -5,10 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.event.DragDropEvent;
+import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -37,6 +40,9 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 	JuegoDTO managedJuegoDTO;
 	VideojuegosPlataformasDTO managedPlataformaDTO;
 	VideojuegosCategoriasDTO managedCategoriaDTO;
+	int idGameToDelete;
+    private List<JuegoDTO> gamesSelected;
+
 	
     private List<JuegoDTO> games;
      
@@ -52,7 +58,15 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	System.out.println("\n gamessss");
         games = userService.findAllGames();
         droppedGames = new ArrayList<JuegoDTO>();
+        gamesSelected = new ArrayList<JuegoDTO>();
     }
+    
+    public void findAll() {
+		
+		showInfoMessage("Exito", "Mostrando lista Usuarios");
+		games = userService.findAllGames();
+	}
+	
     
     public void newGame() {
 		
@@ -94,13 +108,63 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	newCategory();
     	newPlatform();
     }
+    
+    public void deleteGame() {
+    	
+    	try {
+			userService.deleteGame(getIdGameToDelete());//deleteAppUser(appUsers.getUserName());
+			showInfoMessage("Exito", "El juego con ID " + managedJuegoDTO.getIdVideojuego() + " borrado"  );
+		} catch (Exception e) {
+			showErrorMessage("Error", e.getMessage());
+		}
+
+    }
+    
+    
+    public void deleteSelectedGames() {
+    	
+		for (JuegoDTO gamesSelectedf : gamesSelected) {
+			try {
+				userService.deleteGame(gamesSelectedf.getIdVideojuego());//deleteAppUser(appUsers.getUserName());
+				showInfoMessage("Exito", "El juego con ID " + gamesSelectedf.getIdVideojuego() + " borrado"  );
+			} catch (Exception e) {
+				showErrorMessage("Error", e.getMessage());
+			}
+		}
+		gamesSelected = userService.findAllGames();
+	}
     public void onGamesDrop(DragDropEvent ddEvent) {
         JuegoDTO game = ((JuegoDTO) ddEvent.getData());
   
         droppedGames.add(game);
         games.remove(game);
     }
-     
+    
+    public void onRowEdit(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("VideoJuego editado con exito"+((JuegoDTO) event.getObject()).getIdVideojuego());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+        // Modificamos el código para poder usarlo en la capa de servicio
+        JuegoDTO juegoToUpdate = (JuegoDTO) event.getObject();
+        try {
+        	
+			userService.updateGame(juegoToUpdate);
+			//if(userDTOToUpdate.getAppRoleEntityId()>0 ) {
+			//}
+			//serService.updateAppUserRole(juegoToUpdate);
+			
+		} catch (Exception e) {
+			showErrorMessage("Error", e.getMessage());
+		}
+    }
+    
+    public void reset() {
+    	managedJuegoDTO = new JuegoDTO();
+    	games.clear();
+		// tambien serviria poner listUserDTO = new ArrayList<>();
+	}
+	
+    
     public void setService(UserService userService) {
         this.userService = userService;
     }
@@ -159,6 +223,22 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 
 	public void setManagedCategoriaDTO(VideojuegosCategoriasDTO managedCategoriaDTO) {
 		this.managedCategoriaDTO = managedCategoriaDTO;
+	}
+
+	public int getIdGameToDelete() {
+		return idGameToDelete;
+	}
+
+	public void setIdGameToDelete(int idGameToDelete) {
+		this.idGameToDelete = idGameToDelete;
+	}
+
+	public List<JuegoDTO> getGamesSelected() {
+		return gamesSelected;
+	}
+
+	public void setGamesSelected(List<JuegoDTO> gamesSelected) {
+		this.gamesSelected = gamesSelected;
 	}
     
     
