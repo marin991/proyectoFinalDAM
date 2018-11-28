@@ -1,0 +1,47 @@
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" template="/layout/templateAdmin.xhtml">
+
+	<ui:define name="body">
+		<h:form>
+			
+			<p:dataTable id="modifyUsers" var="item" value="#{gamesManagedBean.games}"
+				editable="true" style="margin-bottom:20px" selection="#{gamesManagedBean.games}"
+				rowKey="#{item.userName}" >
+
+				<p:ajax event="rowEdit" listener="#{gamesManagedBean.onRowEdit}" update="growl" />
+       			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancel}" update="growl" />
+
+				<p:column headerText="UserName" filterBy="#{item.nombre}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Nombre" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				           				
+				<p:column style="width:32px">
+				    <p:rowEditor />
+				</p:column>   
+				<p:column style="width:32px">
+					<p:commandButton ajax="false" icon="ui-icon-trash"
+						validateClient="true" action="#{gamesManagedBean.deleteGame}" >
+						<f:setPropertyActionListener value="#{item.idVideojuego}" target="#{gamesManagedBean.idGameToDelete}" />
+					</p:commandButton>
+				</p:column>
+			
+			</p:dataTable> 		
+ 			<div align="right">
+ 				<p:commandButton value="Limpiar" update="modifyUsers"
+					icon="fa fa-refresh"
+					action="#{gamesManagedBean.reset()}" />
+				<p:commandButton value="Buscar Todos" ajax="false" update="modifyUsers"
+					icon="ui-icon-check" validateClient="true"
+					action="#{gamesManagedBean.findAll()}" />
+			</div>
+		</h:form>
+	</ui:define>
+</ui:composition>
