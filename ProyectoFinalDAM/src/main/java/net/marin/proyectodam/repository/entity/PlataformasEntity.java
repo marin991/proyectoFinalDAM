@@ -61,7 +61,7 @@ public class PlataformasEntity implements Serializable{
 		this.nombre = nombre;
 	}
 
-	
+	/*
 	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                 CascadeType.PERSIST
@@ -75,6 +75,6 @@ public class PlataformasEntity implements Serializable{
 
 	public void setJuegosEntityPlat(Set<JuegoEntity> juegosEntityPlat) {
 		this.juegosEntityPlat = juegosEntityPlat;
-	}
+	}*/
 		
 }

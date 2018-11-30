@@ -30,7 +30,7 @@ public class AppUserEntity implements Serializable{
 	int firstVisit ;
 	private Set<AppRoleEntity> appRoleEntities ;//= new HashSet<UserRoleEntity>();
 	
-	private Set<UsuarioValoraEntity> usuarioValoraEntites;
+	//private Set<UsuarioValoraEntity> usuarioValoraEntites;
 	
 	//CONSTRUCTORES
 	
@@ -130,7 +130,7 @@ public class AppUserEntity implements Serializable{
 	        u.appUserEntities.remove(this);
 	    }
 	}
-	
+	/*
 	@OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
 	public Set<UsuarioValoraEntity> getUsuarioValoraEntites() {
 		return usuarioValoraEntites;
@@ -138,7 +138,7 @@ public class AppUserEntity implements Serializable{
 	public void setUsuarioValoraEntites(Set<UsuarioValoraEntity> usuarioValoraEntites) {
 		this.usuarioValoraEntites = usuarioValoraEntites;
 	}
-	
+	*/
 	
 	
 }

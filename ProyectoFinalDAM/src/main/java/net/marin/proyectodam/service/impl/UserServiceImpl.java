@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	JuegoRepository juegoRepository;
 	@Autowired
-	JuegoCatRepository cetegoriaRepository;
+	JuegoCatRepository categoriaRepository;
 	@Autowired
 	JuegosPlatRepository plataformaRepository;
 	@Autowired
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService {
 	public void newCategory(VideojuegosCategoriasDTO juegoCatDTO) throws Exception {
 	
 		VideoJuegosCategoriasEntity juegoCatEntity = Converter.juegoCatDTOtoJuegoCatEntity(juegoCatDTO);	
-		cetegoriaRepository.save(juegoCatEntity);
+		categoriaRepository.save(juegoCatEntity);
 		
 	
 	}
@@ -116,10 +116,10 @@ public class UserServiceImpl implements UserService {
 	public List<JuegoDTO> findAllGames() {
 		
 		//buscamos en la base de datos todos los registros de la tabla
-		List<JuegoEntity> listAppUserEntity = juegoRepository.findAll();
+		List<JuegoEntity> juegoEntity = juegoRepository.findAll();
 		//Como lo que nos devolvio fue todo una lista de tipo UserEntity
 		//tenemos que convertirlo en una lista de tipo UserDTO
-		List<JuegoDTO> listJuegoDTO = Converter.listJuegoEntityToListJuegoDTO(listAppUserEntity);
+		List<JuegoDTO> listJuegoDTO = Converter.listJuegoEntityToListJuegoDTO(juegoEntity);
 		return listJuegoDTO;
 		
 		// Lo ideal es sustiuir las dos lineas anteriores por: (lo dejamos así para que no se pierdan)
@@ -193,6 +193,21 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
+	@Override
+	public void updateGameCategory(JuegoDTO juegoDTOToUpdate) throws Exception {
+		System.out.println("updateGameCategory");
+		System.out.println("uegoDTOToUpdate.getCategoriasEntity().iterator().next().getidCategoria()"+juegoDTOToUpdate.getCategoriasEntity().iterator().next().getidCategoria());
+		System.out.println("juegoDTOToUpdate.getIdVideojuego()"+juegoDTOToUpdate.getIdVideojuego());
+		System.out.println("juegoDTOToUpdate.getIdVideojuego())"+juegoDTOToUpdate.getIdVideojuego());
+		VideojuegosCategoriasDTO videoJuegosCategoriasDTO = new VideojuegosCategoriasDTO(juegoDTOToUpdate.getIdVideojuego(),juegoDTOToUpdate.getCategoriasEntity().iterator().next().getidCategoria());
+		System.out.println(videoJuegosCategoriasDTO); 
+		categoriaRepository.delete(Converter.juegoCatDTOtoJuegoCatEntity(videoJuegosCategoriasDTO));
+		videoJuegosCategoriasDTO = new VideojuegosCategoriasDTO(juegoDTOToUpdate.getIdVideojuego(),juegoDTOToUpdate.getCategoryEntityId());
+		categoriaRepository.save(Converter.juegoCatDTOtoJuegoCatEntity(videoJuegosCategoriasDTO));
+		System.out.println("ee");
+
+	}
+	
 	//Metodo que modifica usuarios en la BBDD
 	@Override
 	public void updateGame(JuegoDTO juegoDTOToUpdate) throws Exception {
@@ -204,6 +219,7 @@ public class UserServiceImpl implements UserService {
 			
 		}
 	}
+	
 	@Override
 	public void updateAppUser(AppUserDTO appUserDTOToUpdate) throws Exception {
 		if (appUserRepository.existsById(appUserDTOToUpdate.getUserName())) {

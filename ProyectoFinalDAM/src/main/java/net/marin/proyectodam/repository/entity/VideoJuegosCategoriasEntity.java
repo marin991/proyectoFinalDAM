@@ -25,11 +25,6 @@ public class VideoJuegosCategoriasEntity implements Serializable{
 		super();
 	}
 	
-	public VideoJuegosCategoriasEntity(int idVideojuego) {
-		this.idVideojuego= idVideojuego;
-		//appRoleEntities = new HashSet<AppRoleEntity>();//new HashSet<UserRoleEntity>();
-	}
-	
 	@Id
 	@Column(name = "ID_VIDEOJUEGOS")
 	public int getIdVideojuego() {

@@ -59,7 +59,7 @@ public class CategoriasEntity implements Serializable{
 	
 	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
-                CascadeType.PERSIST
+                CascadeType.PERSIST,
             })
 	 @JoinTable(name = "VIDEOJUEGOS_PERTENECEN_CATEGORIAS",//Nombre tabla N:N
      joinColumns = { @JoinColumn(name = "ID_CATEGORIAS") },//Columna de la tabla pertenecieente a esta entity

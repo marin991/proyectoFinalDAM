@@ -33,7 +33,8 @@ public class JuegoDTO implements Serializable {
 	private Set<CategoriasEntity> categoriasEntity;
 	
 	private Set<UsuarioValoraEntity> usuarioValoraEntites;
-
+	
+	int categoryEntityId;
 	
 	//CONSTRUCTOR
 	
@@ -97,4 +98,12 @@ public class JuegoDTO implements Serializable {
 		this.usuarioValoraEntites = usuarioValoraEntites;
 	}
 
+	public int getCategoryEntityId() {
+		return categoryEntityId;
+	}
+
+	public void setCategoryEntityId(int categoryEntityId) {
+		this.categoryEntityId = categoryEntityId;
+	}
+	
 }

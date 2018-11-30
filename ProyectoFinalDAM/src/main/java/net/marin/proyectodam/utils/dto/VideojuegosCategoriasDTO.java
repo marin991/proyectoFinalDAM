@@ -5,6 +5,16 @@ public class VideojuegosCategoriasDTO {
 	int idVideojuego;
 	int idCategorias;
 	
+	public VideojuegosCategoriasDTO() {
+		
+		super();
+	}
+	
+	public VideojuegosCategoriasDTO(int idVideojuego,int idCategorias) {
+		this.idVideojuego= idVideojuego;
+		this.idCategorias = idCategorias;
+		
+	}
 	
 	public int getIdVideojuego() {
 		return idVideojuego;

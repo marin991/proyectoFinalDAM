@@ -3,6 +3,7 @@ package net.marin.proyectodam.web.managedbean;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -15,6 +16,8 @@ import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import net.marin.proyectodam.repository.entity.AppRoleEntity;
+import net.marin.proyectodam.repository.entity.CategoriasEntity;
 import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
@@ -107,6 +110,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	newGame();
     	newCategory();
     	newPlatform();
+    	reset();
     }
     
     public void deleteGame() {
@@ -123,7 +127,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     
     public void deleteSelectedGames() {
     	
-		for (JuegoDTO gamesSelectedf : gamesSelected) {
+		for (JuegoDTO gamesSelectedf : gamesSelected) {	
 			try {
 				userService.deleteGame(gamesSelectedf.getIdVideojuego());//deleteAppUser(appUsers.getUserName());
 				showInfoMessage("Exito", "El juego con ID " + gamesSelectedf.getIdVideojuego() + " borrado"  );
@@ -149,9 +153,8 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
         try {
         	
 			userService.updateGame(juegoToUpdate);
-			//if(userDTOToUpdate.getAppRoleEntityId()>0 ) {
-			//}
-			//serService.updateAppUserRole(juegoToUpdate);
+			System.out.println("onRowEdit()"+juegoToUpdate.getCategoryEntityId());
+			userService.updateGameCategory(juegoToUpdate);
 			
 		} catch (Exception e) {
 			showErrorMessage("Error", e.getMessage());
@@ -164,6 +167,19 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		// tambien serviria poner listUserDTO = new ArrayList<>();
 	}
 	
+	public int returnCategory(Set<CategoriasEntity> categoryEntities) {
+	
+		int idCategoria = 8;
+		System.out.println("categoryEntities.size();"+categoryEntities.size());
+		System.out.println("categoryEntities.iterator().next().getidCategoria();"+categoryEntities.iterator().next().getidCategoria()); 
+		for(CategoriasEntity i: categoryEntities) {
+			
+			idCategoria = i.getidCategoria();
+			System.out.println("i.getidCategoria();"+i.getidCategoria());
+		}
+		//idCategoria = categoryEntities.size();
+		return idCategoria;
+    }
     
     public void setService(UserService userService) {
         this.userService = userService;

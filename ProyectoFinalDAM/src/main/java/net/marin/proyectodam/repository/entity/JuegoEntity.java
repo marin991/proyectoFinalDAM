@@ -11,6 +11,7 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Table;
 
 import net.marin.proyectodam.repository.entity.CategoriasEntity;
@@ -30,11 +31,11 @@ public class JuegoEntity implements Serializable{
 	String imagen;
 	
 	
-	private Set<PlataformasEntity> plataformasEntity;
+	//private Set<PlataformasEntity> plataformasEntity;
 	
 	private Set<CategoriasEntity> categoriasEntity;
 	
-	private Set<UsuarioValoraEntity> usuarioValoraEntites;
+	//private Set<UsuarioValoraEntity> usuarioValoraEntites;
 
 	
 	public JuegoEntity() {
@@ -44,7 +45,7 @@ public class JuegoEntity implements Serializable{
 	public JuegoEntity(int idVideojuego) {
 		this.idVideojuego= idVideojuego;
 		categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
-		plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
+		//plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
 
 	}
 	
@@ -57,8 +58,12 @@ public class JuegoEntity implements Serializable{
 	public void setIdVideojuego(int idVideojuego) {
 		this.idVideojuego = idVideojuego;
 		categoriasEntity = new HashSet<CategoriasEntity>();
-		plataformasEntity = new HashSet<PlataformasEntity>();
+		//plataformasEntity = new HashSet<PlataformasEntity>();
 
+	}
+	
+	public void addUserRoleEntities(CategoriasEntity categoriasEntity) {
+		this.categoriasEntity.add(categoriasEntity);//add(userRoleEntity);
 	}
 	
 	@Column(name = "NOMBRE")
@@ -87,16 +92,12 @@ public class JuegoEntity implements Serializable{
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
-	
+	/*
 	public void addUserRoleEntities(PlataformasEntity plataformasEntity) {
 		this.plataformasEntity.add(plataformasEntity);//add(userRoleEntity);
 	}
 	
-	@ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                CascadeType.PERSIST,
-                CascadeType.MERGE
-            },mappedBy = "juegosEntityPlat")
+	
 	public Set<PlataformasEntity> getPlataformasEntity() {
 		return plataformasEntity;
 	}
@@ -104,8 +105,8 @@ public class JuegoEntity implements Serializable{
 	public void setPlataformasEntity(Set<PlataformasEntity> plataformasEntity) {
 		this.plataformasEntity = plataformasEntity;
 	}
-	
-	@ManyToMany(fetch = FetchType.LAZY,
+	*/
+	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                 CascadeType.PERSIST,
                 CascadeType.MERGE
@@ -113,19 +114,26 @@ public class JuegoEntity implements Serializable{
 	public Set<CategoriasEntity> getCategoriasEntity() {
 		return categoriasEntity;
 	}
+	
+	@PreRemove
+	private void removeCategorysFromGame() {
+	    for (CategoriasEntity u : categoriasEntity) { 
+	        u.juegosEntityCat.remove(this);
+	    }
+	}
 
 	public void setCategoriasEntity(Set<CategoriasEntity> categoriasEntity) {
 		this.categoriasEntity = categoriasEntity;
 	}
-	
-	@OneToMany(mappedBy = "juego")
+	/*
+	//@OneToMany(mappedBy = "juego", orphanRemoval = true)
 	public Set<UsuarioValoraEntity> getUsuarioValoraEntites() {
 		return usuarioValoraEntites;
 	}
 
 	public void setUsuarioValoraEntites(Set<UsuarioValoraEntity> usuarioValoraEntites) {
 		this.usuarioValoraEntites = usuarioValoraEntites;
-	}
+	}*/
 	
 
 	

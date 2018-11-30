@@ -9,13 +9,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-@Entity
-@Table(name = "USUARIOS_VALORA_VIDEOJUEGOS")
+//@Entity
+//@Table(name = "USUARIOS_VALORA_VIDEOJUEGOS")
 public class UsuarioValoraEntity implements Serializable{
-	
+	/*	
 	/**
 	 * 
-	 */
+	 
 	private static final long serialVersionUID = 1L;
 		
 	private JuegoEntity juego;
@@ -62,9 +62,5 @@ public class UsuarioValoraEntity implements Serializable{
 	public void setFinalizado(int finalizado) {
 		this.finalizado = finalizado;
 	}
-	
-	
-
-
-
+*/
 }

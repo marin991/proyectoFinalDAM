@@ -47,7 +47,6 @@ public class AppManagedBean extends GenericManagedBean {
 	private List<AppUserDTO> listAppUserSelected;
 	
 	
-	private JuegoDTO juegoDTO;
 	
 	//
 	private List<AppUserDTO> droppedGames;

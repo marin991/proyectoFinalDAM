@@ -8,13 +8,29 @@
 		<h:form>
 			
 			<p:dataTable id="modifyUsers" var="item" value="#{gamesManagedBean.games}"
-				editable="true" style="margin-bottom:20px" selection="#{gamesManagedBean.games}"
-				rowKey="#{item.userName}" >
+				editable="true" style="margin-bottom:20px" selection="#{gamesManagedBean.gamesSelected}"
+				rowKey="#{item.idVideojuego}" >
 
 				<p:ajax event="rowEdit" listener="#{gamesManagedBean.onRowEdit}" update="growl" />
        			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancel}" update="growl" />
-
-				<p:column headerText="UserName" filterBy="#{item.nombre}" filterMatchMode="contains">
+				
+				<p:column headerText="Identificador" filterBy="#{item.idVideojuego}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.idVideojuego}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.idVideojuego}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
 					
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
@@ -22,7 +38,21 @@
 		           </p:cellEditor>
 				</p:column>
 				
-				           				
+				<p:column headerText="Imagen" filterBy="#{item.imagen}" filterMatchMode="contains">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.imagen}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.imagen}" style="width:100%" label="Nombre" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Categoria" filterBy="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" filterMatchMode="contains">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.categoryEntityId}" style="width:100%" label="Nombre" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				 
+			
 				<p:column style="width:32px">
 				    <p:rowEditor />
 				</p:column>   
