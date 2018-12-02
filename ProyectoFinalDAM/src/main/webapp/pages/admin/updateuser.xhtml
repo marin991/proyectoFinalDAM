@@ -36,14 +36,6 @@
 		           </p:cellEditor>	
 		        </p:column>   
 		        
-		        <p:column headerText="Contraseña" filterBy="#{item.encryptedPassword}" filterMatchMode="contains">
-		           <p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.encryptedPassword}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.encryptedPassword}" style="width:100%"/></f:facet>
-		           </p:cellEditor>	
-		        </p:column>   	
-		         
-		        
 		        <p:column headerText="Rol" filterBy="#{appManagedBean.returnRole(item.appRoleEntities)}" filterMatchMode="contains">
 		           <p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{appManagedBean.returnRole(item.appRoleEntities)}" /></f:facet>

@@ -11,30 +11,26 @@
 				<h:panelGrid columns="2" cellpadding="3">
 					<h:outputLabel for="userName" value="UserName:" />
 					<p:inputText id="userName"
-						value="#{appManagedBean.managedBeanUserDTO.userName}" label="UserName" />
+						value="#{appManagedBean.managedBeanUserDTO.userName}" required="true" label="UserName"/>
 					
 					<h:outputLabel for="nombre" value="Nombre:" />
 					<p:inputText id="nombre"
-						value="#{appManagedBean.managedBeanUserDTO.nombre}" label="Nombre" />
+						value="#{appManagedBean.managedBeanUserDTO.nombre}" required="true"  label="Nombre"/>
 
 					<h:outputLabel for="apellidos" value="Apellidos:" />
 					<p:inputText id="apellidos"
-						value="#{appManagedBean.managedBeanUserDTO.apellidos}" />
+						value="#{appManagedBean.managedBeanUserDTO.apellidos}" required="true"/>
 		
 					<h:outputLabel for="encryptedPassword" value="Encrypted password:" />
-					<p:inputText id="encryptedPassword"
-						value="#{appManagedBean.managedBeanUserDTO.encryptedPassword}" />
+					<p:inputText id="encryptedPassword" 
+						value="#{appManagedBean.managedBeanUserDTO.encryptedPassword}" required="true" />
 					
 					<h:outputLabel for="status" value="Estado de bloqueo:" />			
 					<p:selectOneRadio id="status"
-						value="#{appManagedBean.managedBeanUserDTO.status}">
+						value="#{appManagedBean.managedBeanUserDTO.status}" required="true">
 						<f:selectItem itemLabel="Permitido" itemValue="Permitido" />
 						<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
 					</p:selectOneRadio> 
-					
-					<h:outputLabel for="firstVisit" value="First visit:" />
-					<p:inputText id="firstVisit"
-						value="#{appManagedBean.managedBeanUserDTO.firstVisit}" />
 					
 					<p:outputLabel for="console" value="Basic:" />
 			        <p:selectOneMenu id="console" value="#{appManagedBean.managedBeanUserRoleDTO.roleId}" style="width:125px">

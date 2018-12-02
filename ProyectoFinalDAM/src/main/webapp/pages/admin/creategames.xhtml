@@ -7,32 +7,38 @@
 
 	<ui:define name="body">
 		<h:form>
-			<p:panel header="Crear Usuario">
+			<p:panel header="Añadir videojuego a la biblioteca">
 				<h:panelGrid columns="2" cellpadding="3">
 					<h:outputLabel for="idVideojuego" value="idVideojuego:" />
 					<p:inputText id="idVideojuego"
-						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" label="idVideojuego" />
+						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" required="true" label="idVideojuego" />
 					
 					<h:outputLabel for="nombre" value="Nombre:" />
 					<p:inputText id="nombre"
-						value="#{gamesManagedBean.managedJuegoDTO.nombre}" label="Nombre" />
+						value="#{gamesManagedBean.managedJuegoDTO.nombre}" required="true" label="Nombre" />
 
 					<h:outputLabel for="año" value="Año:" />
 					<p:inputText id="año"
-						value="#{gamesManagedBean.managedJuegoDTO.año}" />
+						value="#{gamesManagedBean.managedJuegoDTO.año}" required="true" />
 					
 						
 					<h:outputLabel for="imagen" value="Imagen:" />
 					<p:inputText id="imagen"
-						value="#{gamesManagedBean.managedJuegoDTO.imagen}" />		
+						value="#{gamesManagedBean.managedJuegoDTO.imagen}" required="true"/>		
 					
 					<h:outputLabel for="categoria" value="Categoria:" />
-					<p:inputText id="categoria"
-						value="#{gamesManagedBean.managedCategoriaDTO.idCategorias}" />
-					  
+							<p:selectOneMenu id="rol"
+								value="#{gamesManagedBean.managedCategoriaDTO.idCategorias}">
+								<f:selectItem itemLabel="Accion" itemValue="1" />
+								<f:selectItem itemLabel="RPG" itemValue="2" /> 
+							</p:selectOneMenu>
+					 	 
 					<h:outputLabel for="plataforma" value="Plataforma:" />
-					<p:inputText id="plataforma"
-						value="#{gamesManagedBean.managedPlataformaDTO.idPlataforma}" />	
+						<p:selectOneMenu id="plataforma"
+								value="#{gamesManagedBean.managedPlataformaDTO.idPlataforma}">
+								<f:selectItem itemLabel="Playstation 4" itemValue="1" />
+								<f:selectItem itemLabel="Xbox One" itemValue="2" />
+							</p:selectOneMenu>	
 		
 				</h:panelGrid>
 				<p:commandButton value="Guardar" ajax="false" icon="ui-icon-check"
