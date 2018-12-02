@@ -1,99 +1,77 @@
-<ui:composition 
-	xmlns:ui="http://java.sun.com/jsf/facelets"
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" 
-	template="/layout/templateUser.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/layout/templateAdmin.xhtml">
 
 	<ui:define name="body">
-		<p:growl id="mensajes" showDetail="true" life="2000" />
-		<h1>¡Bienvenido a ViSi USUARIO!</h1>
-		
-		<!-- OPCION 1: FORMULARIO OPCIONES DE USUARIO CON PRIMEFACES-->
-		
-		<script type="text/javascript" src="/../../../js/drop.js"></script>
-	<h:form id="gameForm">
-	    <p:fieldset id="availableGamesField" legend="AvailableGames">
-	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="3">
-	            <p:panel id="pnl" header="#{item.nombre}" style="text-align:center">
-	                <h:panelGrid columns="1" style="width:100%">
-	                    <p:graphicImage value="/../../../images/#{item.imagen}" />
-	                    
-	                </h:panelGrid>
-	            </p:panel>
-	 
-	            <p:draggable for="pnl" revert="true" handle=".ui-panel-titlebar" stack=".ui-panel"/>
-	        </p:dataGrid>
-	    </p:fieldset>
-		    <p:separator />
-		       <p:commandButton value="Limpiar" update="selectedGames,availableGamesField"
-						icon="fa fa-refresh"
-						action="#{gamesManagedBean.resetForUser()}"  outcome="/pages/user/userhome.xhtml" />
-			<p:separator />
-	    <p:fieldset id="selectedGames" legend="Juegos seleccionados" style="margin-top:20px">
-	        <p:outputPanel id="dropArea">
-	            <h:outputText value="!!!Arrastra aqui!!!" rendered="#{empty gamesManagedBean.droppedGames}" style="font-size:24px;" />
-	            <p:dataTable id="selectedGamesTable" var="item" value="#{gamesManagedBean.droppedGames}" rendered="#{not empty gamesManagedBean.droppedGames}">
-	                <p:column headerText="Id">
-	                    <h:outputText value="#{item.idVideojuego}" />
-	                </p:column>
-	 
-	                <p:column headerText="Year">
-	                    <h:outputText value="#{item.año}" />
-	                </p:column>
-	 
-	                <p:column headerText="Categoria">
-	                    <h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" />
-	                </p:column>
-	 
-	                <p:column headerText="Plataforma">	
-	                    <h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" />
-	                </p:column>
-	 
-	                <p:column style="width:32px">
-	                    <p:commandButton update=":gameForm:display" oncomplete="PF('gameDialog').show()" icon="pi pi-search">
-	                        <f:setPropertyActionListener value="#{item}" target="#{gamesManagedBean.selectedGame}" />
-	                    </p:commandButton>
-	                </p:column>
-	            </p:dataTable>
-	        </p:outputPanel>
-	    </p:fieldset>
-	    <p:droppable for="selectedGames" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableGames" onDrop="handleDrop">
-	        <p:ajax listener="#{gamesManagedBean.onGamesDrop}" update="dropArea availableGames" />
-	    </p:droppable>
-	    <p:dialog header="Game Detail" widgetVar="gameDialog" resizable="false" draggable="false"
-	              showEffect="fade" hideEffect="fade" modal="true"> 
-	        <p:outputPanel id="display">
-	            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty gamesManagedBean.selectedGame}">
-	                <f:facet name="header">
-	                    <p:graphicImage value="/../../../images/#{gamesManagedBean.selectedGame.imagen}"/>
-	                </f:facet>
-	 
-	                <h:outputText value="Id:" />
-	                <h:outputText value="#{gamesManagedBean.selectedGame.idVideojuego}" style="font-weight:bold"/>
-	                
-	                
-	                <h:outputText value="Nombre:" />
-	                <h:outputText value="#{gamesManagedBean.selectedGame.nombre}" style="font-weight:bold"/>
-	 
-	 
-	                <h:outputText value="Year:" />
-	                <h:outputText value="#{gamesManagedBean.selectedGame.año}" style="font-weight:bold"/>
-	 
-	                <h:outputText value="Categoria:" />
-	                <h:outputText value="#{gamesManagedBean.returnCategory(gamesManagedBean.selectedGame.categoriasEntity)}" style="font-weight:bold"/>
-	 
-	                <h:outputText value="Plataforma:" />
-	                <h:outputText value="#{gamesManagedBean.returnPlatform(gamesManagedBean.selectedGame.plataformasEntity)}" style="font-weight:bold"/>
-	               	
-	               	<p:commandButton value="Añadir a biblioteca personal" update="selectedGames,availableGamesField"
-						icon="fa fa-refresh"
-						action="#{gamesManagedBean.userValueGame()}"  outcome="/pages/user/userhome.xhtml" />
-	            </h:panelGrid>
-	        </p:outputPanel>
-	    </p:dialog>
-	</h:form>
+		<h:form>
+			
+			<p:dataTable id="modifyUserValues" var="item" value="#{gamesManagedBean.listUserValueGames}"
+				editable="true" style="margin-bottom:20px" selection="#{gamesManagedBean.listUserValueGamesSelected}"
+				rowKey="#{item.gameName}" >
+
+				<p:ajax event="rowEdit" listener="#{gamesManagedBean.onRowEditValue}" update="growl" />
+       			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancel}" update="growl" />
+				
+				<p:column headerText="Usuario" filterBy="#{item.userName}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.userName}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.userName}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Nombre" filterBy="#{item.gameName}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.gameName}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.gameName}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Valoracion" filterBy="#{item.valoracion}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.valoracion}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.valoracion}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Finalizado" filterBy="#{item.finalizado}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.finalizado}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.finalizado}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				<p:column headerText="Imagen" filterBy="#{item.imagen}" filterMatchMode="contains">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{item.imagen}" /></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.imagen}" style="width:100%" label="Identificador" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column style="width:32px">
+				    <p:rowEditor />
+				</p:column>   
+				<p:column style="width:32px">
+					<p:commandButton ajax="false" icon="ui-icon-trash"
+						validateClient="true" action="#{gamesManagedBean.deleteUserValueGame}" >
+						<f:setPropertyActionListener value="#{item}" target="#{gamesManagedBean.userValueGameDTOToDelete}" />
+					</p:commandButton>
+				</p:column>
+			
+			</p:dataTable> 		
+ 			<div align="right">
+ 				<p:commandButton value="Limpiar" update="modifyUserValues"
+					icon="fa fa-refresh"
+					action="#{gamesManagedBean.resetForValue()}" />
+				<p:commandButton value="Buscar Todos" ajax="false" update="modifyUserValues"
+					icon="ui-icon-check" validateClient="true"
+					action="#{gamesManagedBean.findAllValues()}" />
+			</div>
+		</h:form>
 	</ui:define>
-	
 </ui:composition>

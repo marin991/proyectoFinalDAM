@@ -11,9 +11,11 @@ import net.marin.proyectodam.repository.JuegoCatRepository;
 import net.marin.proyectodam.repository.JuegoRepository;
 import net.marin.proyectodam.repository.JuegosPlatRepository;
 import net.marin.proyectodam.repository.UserRoleRepository;
+import net.marin.proyectodam.repository.UserValueGameRepository;
 import net.marin.proyectodam.repository.entity.AppUserEntity;
 import net.marin.proyectodam.repository.entity.JuegoEntity;
 import net.marin.proyectodam.repository.entity.UserRoleEntity;
+import net.marin.proyectodam.repository.entity.UsuarioValoraEntity;
 import net.marin.proyectodam.repository.entity.VideoJuegosCategoriasEntity;
 import net.marin.proyectodam.repository.entity.VideojuegosPlataformasEntity;
 import net.marin.proyectodam.service.UserService;
@@ -21,6 +23,7 @@ import net.marin.proyectodam.utils.converter.Converter;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.UserRoleDTO;
+import net.marin.proyectodam.utils.dto.UserValueGameDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 
@@ -38,6 +41,8 @@ public class UserServiceImpl implements UserService {
 	JuegoCatRepository categoriaRepository;
 	@Autowired
 	JuegosPlatRepository plataformaRepository;
+	@Autowired
+	UserValueGameRepository userValueGameRepository;
 	@Autowired
 	private BCryptPasswordEncoder encoder;//Security se usa para encriptar el pass
 	
@@ -97,6 +102,16 @@ public class UserServiceImpl implements UserService {
 	
 	}
 	
+	@Override
+	public void newUserValueGame(UserValueGameDTO userValueDTO) throws Exception {
+		
+		
+		UsuarioValoraEntity usuarioValoraEntity = Converter.userValueDTOToUserValueEntity(userValueDTO);	
+		userValueGameRepository.save(usuarioValoraEntity);
+		
+	
+	}
+	
 	//Devuelve un list con todos los usuarios de la BBDD
 	@Override
 	public List<AppUserDTO> findAll() {
@@ -121,6 +136,21 @@ public class UserServiceImpl implements UserService {
 		//tenemos que convertirlo en una lista de tipo UserDTO
 		List<JuegoDTO> listJuegoDTO = Converter.listJuegoEntityToListJuegoDTO(juegoEntity);
 		return listJuegoDTO;
+		
+		// Lo ideal es sustiuir las dos lineas anteriores por: (lo dejamos así para que no se pierdan)
+		// return Converter.listUserEntityToListUserDTO(listUserEntity);
+	}
+	
+	@Override
+	public List<UserValueGameDTO> findAllUserValues(String userName) {
+		
+		//buscamos en la base de datos todos los registros de la tabla
+		List<UsuarioValoraEntity> listUsuarioValoraEntity = userValueGameRepository.findByuserName(userName);
+		//userValueGameRepository.
+		//Como lo que nos devolvio fue todo una lista de tipo UserEntity
+		//tenemos que convertirlo en una lista de tipo UserDTO
+		List<UserValueGameDTO> listUsuarioValoraJuegoDTO = Converter.listUserValueEntityToListUserValueDTO(listUsuarioValoraEntity);
+		return listUsuarioValoraJuegoDTO;
 		
 		// Lo ideal es sustiuir las dos lineas anteriores por: (lo dejamos así para que no se pierdan)
 		// return Converter.listUserEntityToListUserDTO(listUserEntity);
@@ -159,6 +189,13 @@ public class UserServiceImpl implements UserService {
 		} else {
 			System.out.println("UserRol inexiste");
 		}
+	}
+	
+	@Override
+	@Transactional
+	public void deleteGameValue(UserValueGameDTO userValueGameDTO) {			// Si el usuario existe, lo borra
+			
+			userValueGameRepository.delete(Converter.userValueDTOToUserValueEntity(userValueGameDTO));
 	}
 	
 	@Override
@@ -239,6 +276,20 @@ public class UserServiceImpl implements UserService {
 	public void updateAppUser(AppUserDTO appUserDTOToUpdate) throws Exception {
 		if (appUserRepository.existsById(appUserDTOToUpdate.getUserName())) {
 			appUserRepository.save(Converter.appUserDTOtoUserEntity(appUserDTOToUpdate));
+			
+		} else {
+			System.out.println("El usuario a modificar no existe.");
+			
+		}
+	}
+	
+	@Override
+	public void updateUserValueGame(UserValueGameDTO userValueGameDTOToUpdate) throws Exception {
+		
+		
+		if (userValueGameRepository.existsBygameName(userValueGameDTOToUpdate.getGameName())) {
+			userValueGameRepository.delete(Converter.userValueDTOToUserValueEntity(userValueGameDTOToUpdate));
+			userValueGameRepository.save(Converter.userValueDTOToUserValueEntity(userValueGameDTOToUpdate));
 			
 		} else {
 			System.out.println("El usuario a modificar no existe.");

@@ -5,6 +5,7 @@ import java.util.List;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.UserRoleDTO;
+import net.marin.proyectodam.utils.dto.UserValueGameDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 
@@ -44,7 +45,13 @@ public interface UserService {
 	public void updateGameCategory(JuegoDTO juegoDTOToUpdate) throws Exception;
 	
 	public void updateGamePlatform(JuegoDTO juegoDTOToUpdate) throws Exception;
-
-
 	
+	public void newUserValueGame(UserValueGameDTO userValueDTO) throws Exception;
+
+	public List<UserValueGameDTO> findAllUserValues(String userName);
+	
+	public void updateUserValueGame(UserValueGameDTO userValueGameDTOToUpdate) throws Exception;
+	
+	public void deleteGameValue(UserValueGameDTO userValueGameDTO);
+
 }

@@ -17,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.AuthenticatedPrincipal;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import net.marin.proyectodam.repository.entity.AppRoleEntity;
@@ -26,6 +29,7 @@ import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.PlataformasDTO;
+import net.marin.proyectodam.utils.dto.UserValueGameDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 
@@ -54,24 +58,58 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     private List<JuegoDTO> games;
      
     private List<JuegoDTO> droppedGames;
+    
+    private List<UserValueGameDTO> listUserValueGames;
+    
+    private List<UserValueGameDTO> listUserValueGamesSelected;
+    
+    UserValueGameDTO userValueGameDTO;
+    
+    UserValueGameDTO userValueGameDTOToDelete;
+
      
     private JuegoDTO selectedGame;
-     
+    
+    Authentication authentication;
+    
     @PostConstruct
     public void init() {
+    	authentication = SecurityContextHolder.getContext().getAuthentication();
     	managedJuegoDTO = new JuegoDTO();
+    	userValueGameDTO = new UserValueGameDTO();
     	managedPlataformaDTO = new VideojuegosPlataformasDTO();
     	managedCategoriaDTO = new VideojuegosCategoriasDTO();
     	System.out.println("\n gamessss");
         games = userService.findAllGames();
+        //listUserValueGames = userService.findAllUserValues());
         droppedGames = new ArrayList<JuegoDTO>();
         gamesSelected = new ArrayList<JuegoDTO>();
+        listUserValueGamesSelected = new ArrayList<UserValueGameDTO>();
+        
     }
     
+    public void deleteUserValueGame() {
+
+		try {
+			//Esta linea borra el el registro user_role porque hay que borrarlo antes debido a la foreign key
+			userService.deleteGameValue(userValueGameDTOToDelete);
+			showInfoMessage("Exito", "Usuario " + userValueGameDTOToDelete.getGameName() + " borrado");
+		} catch (Exception e) {
+			showErrorMessage("Error ", e.getMessage());
+		}
+	}
+    
     public void findAll() {
-		
+
 		showInfoMessage("Exito", "Mostrando lista Usuarios");
 		games = userService.findAllGames();
+	}
+    
+    public void findAllValues() {
+    	authentication = SecurityContextHolder.getContext().getAuthentication();
+
+		showInfoMessage("Exito", "Mostrando lista Usuarios");
+        listUserValueGames = userService.findAllUserValues(authentication.getName());
 	}
     public void reload() throws IOException {
         ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
@@ -112,6 +150,8 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 			showErrorMessage("Error ", e.getMessage());
 		}
 	}
+ 
+    
     public void newGameAndCategory() {
     	
     	newGame();
@@ -179,6 +219,24 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
         managedJuegoDTO = juegoToUpdate;
     }
     
+    public void onRowEditValue(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("VideoJuego editado con exito"+((UserValueGameDTO) event.getObject()).getGameName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+        
+       // Modificamos el código para poder usarlo en la capa de servicio
+       UserValueGameDTO userValueGameToUpdate = (UserValueGameDTO) event.getObject();
+       try {
+    	 //  userService.deleteGameValue(userValueGameToUpdate);
+    	   userService.updateUserValueGame(userValueGameToUpdate);
+			System.out.println("onRowEdit()"+userValueGameToUpdate.getGameName());
+			
+			
+		} catch (Exception e) {
+			showErrorMessage("Error", e.getMessage());
+		}
+       userValueGameDTO = userValueGameToUpdate;
+    }
+    
     public void reset() {
     	managedJuegoDTO = new JuegoDTO();
     	games.clear();
@@ -195,9 +253,27 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	reload();
 	}
     
-    public void userValueGame() throws IOException {
+    public void onRowCancel(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Edición cancelada", ((AppUserDTO) event.getObject()).getUserName());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void resetForValue() throws IOException {
+    	//managedJuegoDTO = new JuegoDTO();
+    	listUserValueGames.clear();
+    	//listUserValueGamesSelected.clear();
+    	//reload();
+		// tambien serviria poner listUserDTO = new ArrayList<>();
+	}
+    public void userValueGame() throws Exception {
        
+    	Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+    	String currentPrincipalName = authentication.getName();
+    	System.out.println("currentPrincipalName"+currentPrincipalName);
     	System.out.println("userValueGame()"+selectedGame.getNombre());
+    	UserValueGameDTO userValueGame = new UserValueGameDTO(currentPrincipalName, selectedGame.getNombre());
+    	userValueGame.setImagen(selectedGame.getImagen());
+    	userService.newUserValueGame(userValueGame);
     	reload();
     }
 	
@@ -304,6 +380,92 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 	public void setGamesSelected(List<JuegoDTO> gamesSelected) {
 		this.gamesSelected = gamesSelected;
 	}
+
+	public List<UserValueGameDTO> getListUserValueGames() {
+		return listUserValueGames;
+	}
+
+	public void setListUserValueGames(List<UserValueGameDTO> listUserValueGames) {
+		this.listUserValueGames = listUserValueGames;
+	}
+
+	public List<UserValueGameDTO> getListUserValueGamesSelected() {
+		return listUserValueGamesSelected;
+	}
+
+	public void setListUserValueGamesSelected(List<UserValueGameDTO> listUserValueGamesSelected) {
+		this.listUserValueGamesSelected = listUserValueGamesSelected;
+	}
+
+	public boolean equals(Object obj) {
+		return userValueGameDTO.equals(obj);
+	}
+
+	public String getUserName() {
+		return userValueGameDTO.getUserName();
+	}
+
+	public void setUserName(String userName) {
+		userValueGameDTO.setUserName(userName);
+	}
+
+	public String getGameName() {
+		return userValueGameDTO.getGameName();
+	}
+
+	public void setGameName(String gameName) {
+		userValueGameDTO.setGameName(gameName);
+	}
+
+	public int getValoracion() {
+		return userValueGameDTO.getValoracion();
+	}
+
+	public void setValoracion(int valoracion) {
+		userValueGameDTO.setValoracion(valoracion);
+	}
+
+	public int getFinalizado() {
+		return userValueGameDTO.getFinalizado();
+	}
+
+	public int hashCode() {
+		return userValueGameDTO.hashCode();
+	}
+
+	public void setFinalizado(int finalizado) {
+		userValueGameDTO.setFinalizado(finalizado);
+	}
+
+	public String getImagen() {
+		return userValueGameDTO.getImagen();
+	}
+
+	public void setImagen(String imagen) {
+		userValueGameDTO.setImagen(imagen);
+	}
+
+	public String toString() {
+		return userValueGameDTO.toString();
+	}
+
+	public UserValueGameDTO getUserValueGameDTO() {
+		return userValueGameDTO;
+	}
+
+	public void setUserValueGameDTO(UserValueGameDTO userValueGameDTO) {
+		this.userValueGameDTO = userValueGameDTO;
+	}
+
+	public UserValueGameDTO getUserValueGameDTOToDelete() {
+		return userValueGameDTOToDelete;
+	}
+
+	public void setUserValueGameDTOToDelete(UserValueGameDTO userValueGameDTOToDelete) {
+		this.userValueGameDTOToDelete = userValueGameDTOToDelete;
+	}
+	
+	
     
     
 }

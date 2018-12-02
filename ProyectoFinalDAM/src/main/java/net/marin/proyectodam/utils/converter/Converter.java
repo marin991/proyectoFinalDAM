@@ -10,12 +10,14 @@ import net.marin.proyectodam.repository.entity.AppRoleEntity;
 import net.marin.proyectodam.repository.entity.AppUserEntity;
 import net.marin.proyectodam.repository.entity.JuegoEntity;
 import net.marin.proyectodam.repository.entity.UserRoleEntity;
+import net.marin.proyectodam.repository.entity.UsuarioValoraEntity;
 import net.marin.proyectodam.repository.entity.VideoJuegosCategoriasEntity;
 import net.marin.proyectodam.repository.entity.VideojuegosPlataformasEntity;
 import net.marin.proyectodam.utils.dto.AppRoleDTO;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
 import net.marin.proyectodam.utils.dto.UserRoleDTO;
+import net.marin.proyectodam.utils.dto.UserValueGameDTO;
 //Clase que convierte DTO en Entity
 import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
@@ -80,17 +82,27 @@ public class Converter {
 	}
 	
 	//Metodos para los objetos y entidades Juego	
-	public static JuegoEntity juegoDTOtoJuegoEntity(JuegoDTO juegoDTO) {
-			JuegoEntity juegoEntity = new JuegoEntity();
-			juegoEntity.setIdVideojuego(juegoDTO.getIdVideojuego());
-			juegoEntity.setNombre(juegoDTO.getNombre());
-			juegoEntity.setAño(juegoDTO.getAño());
-			juegoEntity.setImagen(juegoDTO.getImagen());
-			juegoEntity.setCategoriasEntity(juegoDTO.getCategoriasEntity());
-			juegoEntity.setPlataformasEntity(juegoDTO.getPlataformasEntity());
-			//juegoEntity.setUsuarioValoraEntites(juegoDTO.getUsuarioValoraEntites());
-			return juegoEntity;
+	public static UsuarioValoraEntity userValueDTOToUserValueEntity(UserValueGameDTO userValueGameDTO) {
+			
+			UsuarioValoraEntity usuarioValoraEntity = new UsuarioValoraEntity();
+			usuarioValoraEntity.setUserName(userValueGameDTO.getUserName());
+			usuarioValoraEntity.setGameName(userValueGameDTO.getGameName());
+			usuarioValoraEntity.setValoracion(userValueGameDTO.getValoracion());
+			usuarioValoraEntity.setFinalizado(userValueGameDTO.getFinalizado());
+			usuarioValoraEntity.setImagen(userValueGameDTO.getImagen());
+			return usuarioValoraEntity;
 		}
+	public static JuegoEntity juegoDTOtoJuegoEntity(JuegoDTO juegoDTO) {
+		JuegoEntity juegoEntity = new JuegoEntity();
+		juegoEntity.setIdVideojuego(juegoDTO.getIdVideojuego());
+		juegoEntity.setNombre(juegoDTO.getNombre());
+		juegoEntity.setAño(juegoDTO.getAño());
+		juegoEntity.setImagen(juegoDTO.getImagen());
+		juegoEntity.setCategoriasEntity(juegoDTO.getCategoriasEntity());
+		juegoEntity.setPlataformasEntity(juegoDTO.getPlataformasEntity());
+		//juegoEntity.setUsuarioValoraEntites(juegoDTO.getUsuarioValoraEntites());
+		return juegoEntity;
+	}
 	
 	//Metodos para los objetos y entidades Juego	
 		public static JuegoDTO juegoEntityToJuegoDTO(JuegoEntity juegoEntity) {
@@ -104,6 +116,15 @@ public class Converter {
 				//juegoDTO.setUsuarioValoraEntites(juegoEntity.getUsuarioValoraEntites());
 				return juegoDTO;
 			}
+		public static UserValueGameDTO userValueEntityToUserValueDTO(UsuarioValoraEntity usuarioValoraEntity) {
+			UserValueGameDTO userValueDTO = new UserValueGameDTO();
+			userValueDTO.setUserName(usuarioValoraEntity.getUserName());
+			userValueDTO.setGameName(usuarioValoraEntity.getGameName());
+			userValueDTO.setValoracion(usuarioValoraEntity.getValoracion());
+			userValueDTO.setFinalizado(usuarioValoraEntity.getFinalizado());
+			userValueDTO.setImagen(usuarioValoraEntity.getImagen());
+			return userValueDTO;
+		}
 	//Metodos para los objetos y entidades JuegoCategoria	
 	public static VideoJuegosCategoriasEntity juegoCatDTOtoJuegoCatEntity(VideojuegosCategoriasDTO juegoCatDTO) {
 			VideoJuegosCategoriasEntity juegoCatEntity = new VideoJuegosCategoriasEntity();
@@ -172,5 +193,15 @@ public class Converter {
 			listJuegoDTO.add(juegoDTO);
 		}
 		return listJuegoDTO;
+	}
+	
+	public static List<UserValueGameDTO> listUserValueEntityToListUserValueDTO(List<UsuarioValoraEntity> listUsuarioValoraEntity){
+		List<UserValueGameDTO> listUserValueDTO = new ArrayList<>();
+		for(UsuarioValoraEntity usuarioValoraEntity : listUsuarioValoraEntity) {
+			UserValueGameDTO userValueDTO = new UserValueGameDTO();
+			userValueDTO = userValueEntityToUserValueDTO(usuarioValoraEntity);
+			listUserValueDTO.add(userValueDTO);
+		}
+		return listUserValueDTO;
 	}
 }
