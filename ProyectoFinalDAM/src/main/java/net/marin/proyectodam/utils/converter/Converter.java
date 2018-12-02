@@ -87,7 +87,7 @@ public class Converter {
 			juegoEntity.setAño(juegoDTO.getAño());
 			juegoEntity.setImagen(juegoDTO.getImagen());
 			juegoEntity.setCategoriasEntity(juegoDTO.getCategoriasEntity());
-			//juegoEntity.setPlataformasEntity(juegoDTO.getPlataformasEntity());
+			juegoEntity.setPlataformasEntity(juegoDTO.getPlataformasEntity());
 			//juegoEntity.setUsuarioValoraEntites(juegoDTO.getUsuarioValoraEntites());
 			return juegoEntity;
 		}
@@ -100,7 +100,7 @@ public class Converter {
 				juegoDTO.setAño(juegoEntity.getAño());
 				juegoDTO.setImagen(juegoEntity.getImagen());
 				juegoDTO.setCategoriasEntity(juegoEntity.getCategoriasEntity());
-				//juegoDTO.setPlataformasEntity(juegoEntity.getPlataformasEntity());
+				juegoDTO.setPlataformasEntity(juegoEntity.getPlataformasEntity());
 				//juegoDTO.setUsuarioValoraEntites(juegoEntity.getUsuarioValoraEntites());
 				return juegoDTO;
 			}

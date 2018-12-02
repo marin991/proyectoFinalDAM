@@ -45,10 +45,30 @@
 		           </p:cellEditor>
 				</p:column>
 				
+				 
 				<p:column headerText="Categoria" filterBy="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" filterMatchMode="contains">
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.categoryEntityId}" style="width:100%" label="Nombre" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}"/></f:facet>
+		               <f:facet name="input">
+		               			<p:selectOneMenu id="rol"
+								value="#{item.categoryEntityId}">
+								<f:selectItem itemLabel="Accion" itemValue="1" />
+								<f:selectItem itemLabel="RPG" itemValue="2" />
+							</p:selectOneMenu>
+		               </f:facet>
+		           </p:cellEditor>
+				</p:column> 
+				 
+				<p:column headerText="Plataforma" filterBy="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" filterMatchMode="contains">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" /></f:facet>
+		               	<f:facet name="input">
+		               			<p:selectOneMenu id="plataforma"
+								value="#{item.platFormEntityId}">
+								<f:selectItem itemLabel="Playstation 4" itemValue="1" />
+								<f:selectItem itemLabel="Xbox One" itemValue="2" />
+							</p:selectOneMenu>
+		               </f:facet>
 		           </p:cellEditor>
 				</p:column>
 				 

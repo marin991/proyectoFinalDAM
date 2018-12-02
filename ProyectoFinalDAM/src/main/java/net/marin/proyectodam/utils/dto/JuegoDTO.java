@@ -35,6 +35,7 @@ public class JuegoDTO implements Serializable {
 	private Set<UsuarioValoraEntity> usuarioValoraEntites;
 	
 	int categoryEntityId;
+	int platFormEntityId;
 	
 	//CONSTRUCTOR
 	
@@ -105,5 +106,14 @@ public class JuegoDTO implements Serializable {
 	public void setCategoryEntityId(int categoryEntityId) {
 		this.categoryEntityId = categoryEntityId;
 	}
+
+	public int getPlatFormEntityId() {
+		return platFormEntityId;
+	}
+
+	public void setPlatFormEntityId(int platFormEntityId) {
+		this.platFormEntityId = platFormEntityId;
+	}
+	
 	
 }

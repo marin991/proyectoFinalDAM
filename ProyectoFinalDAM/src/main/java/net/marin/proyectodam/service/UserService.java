@@ -42,6 +42,9 @@ public interface UserService {
 	public void updateGame(JuegoDTO juegoDTOToUpdate) throws Exception;
 	
 	public void updateGameCategory(JuegoDTO juegoDTOToUpdate) throws Exception;
+	
+	public void updateGamePlatform(JuegoDTO juegoDTOToUpdate) throws Exception;
+
 
 	
 }

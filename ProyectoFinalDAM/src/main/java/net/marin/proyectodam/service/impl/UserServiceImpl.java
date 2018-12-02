@@ -208,6 +208,21 @@ public class UserServiceImpl implements UserService {
 
 	}
 	
+	@Override
+	public void updateGamePlatform(JuegoDTO juegoDTOToUpdate) throws Exception {
+		System.out.println("updateGamePlatform");
+		System.out.println("uegoDTOToUpdate.getPlataformasEntity().iterator().next().getidPlataforma()"+juegoDTOToUpdate.getPlataformasEntity().iterator().next().getIdPlataforma());
+		System.out.println("juegoDTOToUpdate.getIdVideojuego()"+juegoDTOToUpdate.getIdVideojuego());
+		System.out.println("juegoDTOToUpdate.getIdVideojuego())"+juegoDTOToUpdate.getIdVideojuego());
+		VideojuegosPlataformasDTO videoJuegosPlataformasDTO = new VideojuegosPlataformasDTO(juegoDTOToUpdate.getIdVideojuego(),juegoDTOToUpdate.getPlataformasEntity().iterator().next().getIdPlataforma());
+		System.out.println(videoJuegosPlataformasDTO); 
+		plataformaRepository.delete(Converter.juegoPlatDTOtoJuegoPlatEntity(videoJuegosPlataformasDTO));
+		videoJuegosPlataformasDTO = new VideojuegosPlataformasDTO(juegoDTOToUpdate.getIdVideojuego(),juegoDTOToUpdate.getPlatFormEntityId());
+		plataformaRepository.save(Converter.juegoPlatDTOtoJuegoPlatEntity(videoJuegosPlataformasDTO));
+		System.out.println("ee");
+
+	}
+	
 	//Metodo que modifica usuarios en la BBDD
 	@Override
 	public void updateGame(JuegoDTO juegoDTOToUpdate) throws Exception {

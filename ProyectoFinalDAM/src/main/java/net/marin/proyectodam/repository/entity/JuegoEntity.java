@@ -31,7 +31,7 @@ public class JuegoEntity implements Serializable{
 	String imagen;
 	
 	
-	//private Set<PlataformasEntity> plataformasEntity;
+	private Set<PlataformasEntity> plataformasEntity;
 	
 	private Set<CategoriasEntity> categoriasEntity;
 	
@@ -45,7 +45,7 @@ public class JuegoEntity implements Serializable{
 	public JuegoEntity(int idVideojuego) {
 		this.idVideojuego= idVideojuego;
 		categoriasEntity = new HashSet<CategoriasEntity>();//new HashSet<UserRoleEntity>();
-		//plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
+		plataformasEntity = new HashSet<PlataformasEntity>();//new HashSet<UserRoleEntity>();
 
 	}
 	
@@ -58,7 +58,7 @@ public class JuegoEntity implements Serializable{
 	public void setIdVideojuego(int idVideojuego) {
 		this.idVideojuego = idVideojuego;
 		categoriasEntity = new HashSet<CategoriasEntity>();
-		//plataformasEntity = new HashSet<PlataformasEntity>();
+		plataformasEntity = new HashSet<PlataformasEntity>();
 
 	}
 	
@@ -96,8 +96,13 @@ public class JuegoEntity implements Serializable{
 	public void addUserRoleEntities(PlataformasEntity plataformasEntity) {
 		this.plataformasEntity.add(plataformasEntity);//add(userRoleEntity);
 	}
+	*/
 	
-	
+	@ManyToMany(fetch = FetchType.EAGER,
+            cascade = {
+                CascadeType.PERSIST,
+                CascadeType.MERGE
+            },mappedBy = "juegosEntityPlat")
 	public Set<PlataformasEntity> getPlataformasEntity() {
 		return plataformasEntity;
 	}
@@ -105,7 +110,7 @@ public class JuegoEntity implements Serializable{
 	public void setPlataformasEntity(Set<PlataformasEntity> plataformasEntity) {
 		this.plataformasEntity = plataformasEntity;
 	}
-	*/
+	
 	@ManyToMany(fetch = FetchType.EAGER,
             cascade = {
                 CascadeType.PERSIST,
@@ -120,7 +125,11 @@ public class JuegoEntity implements Serializable{
 	    for (CategoriasEntity u : categoriasEntity) { 
 	        u.juegosEntityCat.remove(this);
 	    }
+	    for (PlataformasEntity u : plataformasEntity) { 
+	        u.juegosEntityPlat.remove(this);
+	    }
 	}
+	
 
 	public void setCategoriasEntity(Set<CategoriasEntity> categoriasEntity) {
 		this.categoriasEntity = categoriasEntity;

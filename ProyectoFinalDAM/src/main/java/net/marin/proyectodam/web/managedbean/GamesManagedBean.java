@@ -1,5 +1,6 @@
 package net.marin.proyectodam.web.managedbean;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,7 +10,9 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.RowEditEvent;
@@ -18,6 +21,7 @@ import org.springframework.stereotype.Component;
 
 import net.marin.proyectodam.repository.entity.AppRoleEntity;
 import net.marin.proyectodam.repository.entity.CategoriasEntity;
+import net.marin.proyectodam.repository.entity.PlataformasEntity;
 import net.marin.proyectodam.service.UserService;
 import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
@@ -69,7 +73,10 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		showInfoMessage("Exito", "Mostrando lista Usuarios");
 		games = userService.findAllGames();
 	}
-	
+    public void reload() throws IOException {
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+        ec.redirect(((HttpServletRequest) ec.getRequest()).getRequestURI());
+    }
     
     public void newGame() {
 		
@@ -137,6 +144,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		}
 		gamesSelected = userService.findAllGames();
 	}
+    
     public void onGamesDrop(DragDropEvent ddEvent) {
         JuegoDTO game = ((JuegoDTO) ddEvent.getData());
   
@@ -154,11 +162,21 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
         	
 			userService.updateGame(juegoToUpdate);
 			System.out.println("onRowEdit()"+juegoToUpdate.getCategoryEntityId());
-			userService.updateGameCategory(juegoToUpdate);
+			
+			if(juegoToUpdate.getCategoryEntityId()!=0) {
+				
+				userService.updateGameCategory(juegoToUpdate);
+			}
+			
+			if(juegoToUpdate.getPlatFormEntityId()!=0) {
+				
+				userService.updateGamePlatform(juegoToUpdate);
+			}
 			
 		} catch (Exception e) {
 			showErrorMessage("Error", e.getMessage());
 		}
+        managedJuegoDTO = juegoToUpdate;
     }
     
     public void reset() {
@@ -166,19 +184,49 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	games.clear();
 		// tambien serviria poner listUserDTO = new ArrayList<>();
 	}
+    
+    public void resetForUser() throws IOException {
+    	//managedJuegoDTO = new JuegoDTO();
+    	//games.clear();
+    	//selectedGame = new JuegoDTO();
+    	droppedGames.clear();
+    	gamesSelected.clear();
+    	games = userService.findAllGames();
+    	reload();
+	}
+    
+    public void userValueGame() throws IOException {
+       
+    	System.out.println("userValueGame()"+selectedGame.getNombre());
+    	reload();
+    }
 	
-	public int returnCategory(Set<CategoriasEntity> categoryEntities) {
+	public String returnCategory(Set<CategoriasEntity> categoryEntities) {
 	
-		int idCategoria = 8;
+		String idCategoria = "";
 		System.out.println("categoryEntities.size();"+categoryEntities.size());
 		System.out.println("categoryEntities.iterator().next().getidCategoria();"+categoryEntities.iterator().next().getidCategoria()); 
 		for(CategoriasEntity i: categoryEntities) {
 			
-			idCategoria = i.getidCategoria();
+			idCategoria = i.getNombre();
 			System.out.println("i.getidCategoria();"+i.getidCategoria());
 		}
 		//idCategoria = categoryEntities.size();
 		return idCategoria;
+    }
+	
+	public String returnPlatform(Set<PlataformasEntity> platformEntities) {
+		
+		String idPlataforma = "";
+		System.out.println("categoryEntities.size();"+platformEntities.size());
+		System.out.println("categoryEntities.iterator().next().getidPlataforma();"+platformEntities.iterator().next().getIdPlataforma()); 
+		for(PlataformasEntity i: platformEntities) {
+			
+			idPlataforma = i.getNombre();
+			System.out.println("i.getidCategoria();"+i.getIdPlataforma());
+		}
+		//idCategoria = categoryEntities.size();
+		return idPlataforma;
     }
     
     public void setService(UserService userService) {

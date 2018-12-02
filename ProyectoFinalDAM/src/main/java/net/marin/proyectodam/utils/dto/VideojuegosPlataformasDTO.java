@@ -5,6 +5,16 @@ public class VideojuegosPlataformasDTO {
 	int idVideojuego;
 	int idPlataforma;
 	
+	public VideojuegosPlataformasDTO() {
+		
+		super();
+	}
+	
+	public VideojuegosPlataformasDTO(int idVideojuego,int idPlataforma) {
+		this.idVideojuego= idVideojuego;
+		this.idPlataforma = idPlataforma;
+		
+	}
 	public int getIdVideojuego() {
 		return idVideojuego;
 	}
