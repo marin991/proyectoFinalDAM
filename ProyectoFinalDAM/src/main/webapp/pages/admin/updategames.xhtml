@@ -8,47 +8,47 @@
 		<h:form>
 			
 			<p:dataTable id="modifyUsers" var="item" value="#{gamesManagedBean.games}"
-				editable="true" style="margin-bottom:20px" selection="#{gamesManagedBean.gamesSelected}"
+				editable="true" style="margin-bottom:20px;margin-top:80px" selection="#{gamesManagedBean.gamesSelected}"
 				rowKey="#{item.idVideojuego}" >
 
 				<p:ajax event="rowEdit" listener="#{gamesManagedBean.onRowEdit}" update="growl" />
        			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancel}" update="growl" />
 				
-				<p:column headerText="Identificador" filterBy="#{item.idVideojuego}" filterMatchMode="contains">
+				<p:column headerText="Identificador" filterBy="#{item.idVideojuego}" filterMatchMode="contains" style="background-color:black">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.idVideojuego}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.idVideojuego}" style="color:white"/></f:facet>
 		               <f:facet name="input"><h:inputHidden value="#{item.idVideojuego}" style="width:100%" label="Identificador" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
+				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains" style="background-color:black">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.nombre}" style="color:white"/></f:facet>
 		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Identificador" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Año" filterBy="#{item.año}" filterMatchMode="contains">
+				<p:column headerText="Año" filterBy="#{item.año}" filterMatchMode="contains" style="background-color:black">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.año}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.año}" style="color:white"/></f:facet>
 		               <f:facet name="input"><p:inputText value="#{item.año}" style="width:100%" label="Nombre" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Imagen" filterBy="#{item.imagen}" filterMatchMode="contains">
+				<p:column headerText="Imagen" filterBy="#{item.imagen}" filterMatchMode="contains" style="background-color:black">
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.imagen}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.imagen}" style="color:white"/></f:facet>
 		               <f:facet name="input"><p:inputText value="#{item.imagen}" style="width:100%" label="Nombre" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
 				 
-				<p:column headerText="Categoria" filterBy="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" filterMatchMode="contains">
+				<p:column headerText="Categoria" filterBy="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" filterMatchMode="contains" style="background-color:black">
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}"/></f:facet>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" style="color:white"/></f:facet>
 		               <f:facet name="input">
 		               			<p:selectOneMenu id="rol"
 								value="#{item.categoryEntityId}">
@@ -59,9 +59,9 @@
 		           </p:cellEditor>
 				</p:column> 
 				 
-				<p:column headerText="Plataforma" filterBy="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" filterMatchMode="contains">
+				<p:column headerText="Plataforma" filterBy="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" filterMatchMode="contains" style="background-color:black">
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" style="color:white"/></f:facet>
 		               	<f:facet name="input">
 		               			<p:selectOneMenu id="plataforma"
 								value="#{item.platFormEntityId}">
@@ -73,10 +73,10 @@
 				</p:column>
 				 
 			
-				<p:column style="width:32px">
+				<p:column style="width:32px;background-color:black">
 				    <p:rowEditor />
 				</p:column>   
-				<p:column style="width:32px">
+				<p:column style="width:32px;background-color:black" >
 					<p:commandButton ajax="false" icon="ui-icon-trash"
 						validateClient="true" action="#{gamesManagedBean.deleteGame}" >
 						<f:setPropertyActionListener value="#{item.idVideojuego}" target="#{gamesManagedBean.idGameToDelete}" />

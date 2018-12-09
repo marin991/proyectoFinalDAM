@@ -5,16 +5,14 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:form id="menu">
-			<p:dock position="top" maxWidth="70" itemWidth="55">
-				<p:menuitem value="Zona usuario" icon="/images/game-controller.png" url="/pages/user/userhome.xhtml"/>
-			    <p:menuitem value="Crear usuario" icon="/images/add-friend.png" url="/pages/admin/createuser.xhtml"/>
-			    <p:menuitem value="Administrar usuarios" icon="/images/management.png" url="/pages/admin/updateuser.xhtml"/>
-			   	<p:menuitem value="Añadir videojuego" icon="/images/add-image.png" url="/pages/admin/creategames.xhtml"/>
-			   	<p:menuitem value="Administrar videojuegos" icon="/images/notepad.png" url="/pages/admin/updategames.xhtml"/>
-		   		<p:menuitem value="Administración" icon="/images/men.png" url="/pages/admin/adminhome.xhtml"/>
+			<p:dock position="top" maxWidth="70" itemWidth="55" style="ui-dock-container-top2">
+				<p:menuitem value="Zona usuario" icon="/images/game-controller.png" url="/pages/user/userhome.xhtml" style="color: white"/>
+			    <p:menuitem value="Crear usuario" icon="/images/add-friend.png" url="/pages/admin/createuser.xhtml" style="color: white"/>
+			    <p:menuitem value="Administrar usuarios" icon="/images/management.png" url="/pages/admin/updateuser.xhtml" style="color: white"/>
+			   	<p:menuitem value="Añadir videojuego" icon="/images/add-file.png" url="/pages/admin/creategames.xhtml" style="color: white"/>
+			   	<p:menuitem value="Administrar videojuegos" icon="/images/notepad.png" url="/pages/admin/updategames.xhtml" style="color: white"/>
+		   		<p:menuitem value="Administración" icon="/images/men.png" url="/pages/admin/adminhome.xhtml" style="color: white"/>
 			</p:dock>
-	</h:form>
-	<p:separator style="width:500px;height:20px"/>
-		
+	</h:form>		
 </ui:composition>
 

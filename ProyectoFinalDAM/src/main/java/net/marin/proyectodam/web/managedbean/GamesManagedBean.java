@@ -256,7 +256,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     
     public void resetForUser() throws IOException {
     	//managedJuegoDTO = new JuegoDTO();
-    	//games.clear();
+    	games.clear();
     	//selectedGame = new JuegoDTO();
     	//droppedGames = new ArrayList<JuegoDTO>();
     	//resetForUser();

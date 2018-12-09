@@ -6,35 +6,35 @@
 	template="/layout/templateAdmin.xhtml">
 
 	<ui:define name="body">
-		<h:form>
-			<p:panel header="Añadir videojuego a la biblioteca">
-				<h:panelGrid columns="2" cellpadding="3">
+		<h:form style="margin-top:80px">
+			<p:panel header="Añadir videojuego a la biblioteca"  style="background-color:black;color:white">
+				<h:panelGrid columns="2" cellpadding="3" >
 					
-					<h:outputLabel for="idVideojuego" value="Identificador :" />
+					<h:outputLabel for="idVideojuego" value="Identificador :" style="color:white"/>
 					<p:inputText id="idVideojuego"
 						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" required="true" label="Nombre" />
 						
-					<h:outputLabel for="nombre" value="Nombre:" />
+					<h:outputLabel for="nombre" value="Nombre:"  style="color:white"/>
 					<p:inputText id="nombre"
 						value="#{gamesManagedBean.managedJuegoDTO.nombre}" required="true" label="Nombre" />
 
-					<h:outputLabel for="año" value="Año:" />
+					<h:outputLabel for="año" value="Año:"  style="color:white"/>
 					<p:inputText id="año"
 						value="#{gamesManagedBean.managedJuegoDTO.año}" required="true" />
 					
 						
-					<h:outputLabel for="imagen" value="Imagen:" />
+					<h:outputLabel for="imagen" value="Imagen:"  style="color:white"/>
 					<p:inputText id="imagen"
 						value="#{gamesManagedBean.managedJuegoDTO.imagen}" required="true"/>		
 					
-					<h:outputLabel for="categoria" value="Categoria:" />
+					<h:outputLabel for="categoria" value="Categoria:"  style="color:white"/>
 							<p:selectOneMenu id="rol"
 								value="#{gamesManagedBean.managedCategoriaDTO.idCategorias}">
 								<f:selectItem itemLabel="Accion" itemValue="1" />
 								<f:selectItem itemLabel="RPG" itemValue="2" /> 
 							</p:selectOneMenu>
 					 	 
-					<h:outputLabel for="plataforma" value="Plataforma:" />
+					<h:outputLabel for="plataforma" value="Plataforma:"  style="color:white"/>
 						<p:selectOneMenu id="plataforma"
 								value="#{gamesManagedBean.managedPlataformaDTO.idPlataforma}">
 								<f:selectItem itemLabel="Playstation 4" itemValue="1" />

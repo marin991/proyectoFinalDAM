@@ -5,34 +5,34 @@
 	xmlns:p="http://primefaces.org/ui" 
 	template="/layout/templateAdmin.xhtml">
 
-	<ui:define name="body">
-		<h:form>
-			<p:panel header="Crear Usuario">
+	<ui:define name="body" >
+		<h:form style="margin-top:80px">
+			<p:panel header="Crear Usuario" style="background-color:black;color:white">
 				<h:panelGrid columns="2" cellpadding="3">
-					<h:outputLabel for="userName" value="UserName:" />
+					<h:outputLabel for="userName" value="UserName:" style="color:white"/>
 					<p:inputText id="userName"
 						value="#{appManagedBean.managedBeanUserDTO.userName}" required="true" label="UserName"/>
 					
-					<h:outputLabel for="nombre" value="Nombre:" />
+					<h:outputLabel for="nombre" value="Nombre:"  style="color:white"/>
 					<p:inputText id="nombre"
 						value="#{appManagedBean.managedBeanUserDTO.nombre}" required="true"  label="Nombre"/>
 
-					<h:outputLabel for="apellidos" value="Apellidos:" />
+					<h:outputLabel for="apellidos" value="Apellidos:"  style="color:white"/>
 					<p:inputText id="apellidos"
 						value="#{appManagedBean.managedBeanUserDTO.apellidos}" required="true"/>
 		
-					<h:outputLabel for="encryptedPassword" value="Encrypted password:" />
+					<h:outputLabel for="encryptedPassword" value="Encrypted password:"  style="color:white"/>
 					<p:inputText id="encryptedPassword" 
 						value="#{appManagedBean.managedBeanUserDTO.encryptedPassword}" required="true" />
 					
-					<h:outputLabel for="status" value="Estado de bloqueo:" />			
+					<h:outputLabel for="status" value="Estado de bloqueo:"  style="color:white"/>			
 					<p:selectOneRadio id="status"
-						value="#{appManagedBean.managedBeanUserDTO.status}" required="true">
-						<f:selectItem itemLabel="Permitido" itemValue="Permitido" />
+						value="#{appManagedBean.managedBeanUserDTO.status}" required="true"  style="color:white">
+						<f:selectItem itemLabel="Permitido" itemValue="Permitido"/>
 						<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
 					</p:selectOneRadio> 
 					
-					<p:outputLabel for="console" value="Basic:" />
+					<p:outputLabel for="console" value="Basic:"  style="color:white"/>
 			        <p:selectOneMenu id="console" value="#{appManagedBean.managedBeanUserRoleDTO.roleId}" style="width:125px">
 			            
 			            <f:selectItem itemLabel="Usuario" itemValue="2" />

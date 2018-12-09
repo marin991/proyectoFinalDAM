@@ -8,37 +8,37 @@
 		<h:form>
 			
 			<p:dataTable id="modifyUsers" var="item" value="#{appManagedBean.listAppUserDTO}"
-				editable="true" style="margin-bottom:20px" selection="#{appManagedBean.listAppUserSelected}"
+				editable="true" style="margin-bottom:20px; margin-top:80px" selection="#{appManagedBean.listAppUserSelected}"
 				rowKey="#{item.userName}" >
 
 				<p:ajax event="rowEdit" listener="#{appManagedBean.onRowEdit}" update="growl" />
        			<p:ajax event="rowEditCancel" listener="#{appManagedBean.onRowCancel}" update="growl" />
 
-				<p:column headerText="UserName" filterBy="#{item.userName}" filterMatchMode="contains">
+				<p:column headerText="UserName" filterBy="#{item.userName}" filterMatchMode="contains" style="background-color:black;">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.userName}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.userName}" style="color:white"/></f:facet>
 		               <f:facet name="input"><p:inputText value="#{item.userName}" style="width:100%" label="Nombre" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains">
+				<p:column headerText="Nombre" filterBy="#{item.nombre}" filterMatchMode="contains"  style="background-color:black;">
 		           <p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.nombre}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Nombre" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.nombre}"  style="color:white"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.nombre}" style="width:100%" label="Nombre"/></f:facet>
 		           </p:cellEditor>
 		        </p:column>   										
 				
-				<p:column headerText="Apellidos" filterBy="#{item.apellidos}" filterMatchMode="contains">
+				<p:column headerText="Apellidos" filterBy="#{item.apellidos}" filterMatchMode="contains"  style="background-color:black;">
 		           <p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.apellidos}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.apellidos}" style="width:100%"/></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.apellidos}"  style="color:white"/></f:facet>
+		               <f:facet name="input"><p:inputText value="#{item.apellidos}" style="width:100%" /></f:facet>
 		           </p:cellEditor>	
 		        </p:column>   
 		        
-		        <p:column headerText="Rol" filterBy="#{appManagedBean.returnRole(item.appRoleEntities)}" filterMatchMode="contains">
+		        <p:column headerText="Rol" filterBy="#{appManagedBean.returnRole(item.appRoleEntities)}" filterMatchMode="contains"  style="background-color:black;">
 		           <p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{appManagedBean.returnRole(item.appRoleEntities)}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{appManagedBean.returnRole(item.appRoleEntities)}"  style="color:white"/></f:facet>
 		               <f:facet name="input">
 			               	<p:selectOneRadio id="rol"
 							value="#{item.appRoleEntityId}">
@@ -49,9 +49,9 @@
 		           </p:cellEditor>					
 				</p:column>	
 				
-		         <p:column headerText="Estatus">
+		         <p:column headerText="Estatus" style="background-color:black">
 		           <p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.status}" /></f:facet>
+		               <f:facet name="output"><h:outputText value="#{item.status}"  style="color:white"/></f:facet>
 		               <f:facet name="input">
 			               	<p:selectOneRadio id="status"
 							value="#{item.status}">
@@ -63,10 +63,10 @@
 				</p:column>	
 		        
 		           				
-				<p:column style="width:32px">
+				<p:column style="width:32px;background-color:black">
 				    <p:rowEditor />
 				</p:column>   
-				<p:column style="width:32px">
+				<p:column style="width:32px; background-color:black" >
 					<p:commandButton ajax="false" icon="ui-icon-trash"
 						validateClient="true" action="#{appManagedBean.deleteUser}" >
 						<f:setPropertyActionListener value="#{item.userName}" target="#{appManagedBean.userNameToDelete}" />

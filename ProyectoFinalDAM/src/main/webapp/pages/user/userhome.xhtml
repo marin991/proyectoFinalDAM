@@ -8,15 +8,15 @@
 
 	<ui:define name="body">
 		<p:growl id="mensajes" showDetail="true" life="2000" />
-		<h1>¡Bienvenido a ViSi USUARIO!</h1>
+		<h1>¡Bienvenido a Zenit USUARIO!</h1>
 		
 		<!-- OPCION 1: FORMULARIO OPCIONES DE USUARIO CON PRIMEFACES-->
 		
 		<script type="text/javascript" src="/../../../js/drop.js"></script>
 	<h:form id="gameForm">
-	    <p:fieldset id="availableGamesField" legend="AvailableGames">
-	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="3">
-	            <p:panel id="pnl" header="#{item.nombre}" style="text-align:center">
+	    <p:fieldset id="availableGamesField" legend="Juegos disponibles" style="background-color:rgba(0,0,0,0.5);">
+	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="3" styleClass="ui-datagrid-no-border">
+	            <p:panel id="pnl" header="#{item.nombre}" style="text-align:center;background-color:rgba(0,0,0,0.5);" >
 	                <h:panelGrid columns="1" style="width:100%">
 	                    <p:graphicImage value="/../../../images/#{item.imagen}" />
 	                    
@@ -31,31 +31,31 @@
 						icon="fa fa-refresh"
 						action="#{gamesManagedBean.resetForUser()}"/>
 			<p:separator />
-	    <p:fieldset id="selectedGames" legend="Juegos seleccionados" style="margin-top:20px">
+	    <p:fieldset id="selectedGames" legend="Juegos seleccionados" style="margin-top:20px; background-color:rgba(0,0,0,0.5);">
 	        <p:outputPanel id="dropArea">
 	            <h:outputText value="!!!Arrastra aqui!!!" rendered="#{empty gamesManagedBean.droppedGames}" style="font-size:24px;" />
 	            <p:dataTable id="selectedGamesTable" var="item" value="#{gamesManagedBean.droppedGames}" rendered="#{not empty gamesManagedBean.droppedGames}">
-	                <p:column headerText="Id">
-	                    <h:outputText value="#{item.idVideojuego}" />
+	                <p:column headerText="Id" style="background-color:black;">
+	                    <h:outputText value="#{item.idVideojuego}" style="color: white;"/>
 	                </p:column>
 	                
-	                 <p:column headerText="Nombre">
-	                    <h:outputText value="#{item.nombre}" />
+	                 <p:column headerText="Nombre" style="background-color:black;">
+	                    <h:outputText value="#{item.nombre}" style="color: white;"/>
 	                </p:column>
 	 
-	                <p:column headerText="Año">
-	                    <h:outputText value="#{item.año}" />
+	                <p:column headerText="Año" style="background-color:black;">
+	                    <h:outputText value="#{item.año}" style="color: white;"/>
 	                </p:column>
 	 
-	                <p:column headerText="Categoria">
-	                    <h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" />
+	                <p:column headerText="Categoria" style="background-color:black;">
+	                    <h:outputText value="#{gamesManagedBean.returnCategory(item.categoriasEntity)}" style="color: white;"/>
 	                </p:column>
 	 
-	                <p:column headerText="Plataforma">	
-	                    <h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" />
+	                <p:column headerText="Plataforma" style="background-color:black;">	
+	                    <h:outputText value="#{gamesManagedBean.returnPlatform(item.plataformasEntity)}" style="color: white;"/>
 	                </p:column>
 	 
-	                <p:column style="width:32px">
+	                <p:column style="width:32px; background-color:black;" >
 	                    <p:commandButton update=":gameForm:display" oncomplete="PF('gameDialog').show()" icon="pi pi-search">
 	                        <f:setPropertyActionListener value="#{item}" target="#{gamesManagedBean.selectedGame}" />
 	                    </p:commandButton>

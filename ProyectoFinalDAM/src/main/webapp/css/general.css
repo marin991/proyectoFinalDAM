@@ -4,11 +4,31 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro');
 
 
-/*
+
 body {
 	font-family: 'Source Sans Pro', sans-serif;
+	color: white;
+	background-image: url("/../images/darkSouls.jpg");
+
 }
-*/
+
+.ui-dock-container-top{
+                position: absolute !important;
+                background-color:transparent;
+                border:1px;
+                color:white;
+                
+            }
+            
+.ui-datagrid-content {
+                background-color:transparent;
+	
+}
+
+.ui-datatable {
+                background-color:transparent;
+	
+}
 
 #cabecera {
 	width: 100%;
