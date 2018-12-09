@@ -8,7 +8,9 @@
 
 	<ui:define name="body">
 		<p:growl id="mensajes" showDetail="true" life="2000" />
-		<h1>¡Bienvenido a Zenit USUARIO!</h1>
+		<div align="center">
+		<h:outputText value="#{gamesManagedBean.returnAuth()} bienvenido a Zenki" style="font-size:35px;"/>
+		</div>
 		
 		<!-- OPCION 1: FORMULARIO OPCIONES DE USUARIO CON PRIMEFACES-->
 		
@@ -66,7 +68,7 @@
 	    <p:droppable for="selectedGames" tolerance="touch" activeStyleClass="ui-state-highlight" datasource="availableGames" onDrop="handleDrop">
 	        <p:ajax listener="#{gamesManagedBean.onGamesDrop}" update="dropArea availableGames" />
 	    </p:droppable>
-	    <p:dialog header="Game Detail" widgetVar="gameDialog" resizable="false" draggable="false"
+	    <p:dialog header="Detalles del juego" widgetVar="gameDialog" resizable="false" draggable="false"
 	              showEffect="fade" hideEffect="fade" modal="true"> 
 	        <p:outputPanel id="display">
 	            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty gamesManagedBean.selectedGame}">

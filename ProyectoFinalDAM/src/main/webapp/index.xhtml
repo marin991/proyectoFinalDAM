@@ -11,12 +11,12 @@
 	</font>
 	<ui:define name="body">
 		<p:growl id="mensajes" showDetail="true" life="2000" />
-		<h1 id="titulo-login">LOGIN</h1>
+		<h1 id="titulo-login">ZENKI</h1>
 		<form class="login-form" action="${request.contextPath}/login" method="post" id="formularioLogin" >
 		    <h:panelGrid id="grid" columns="2" cellpadding="5">
-		        <p:outputLabel for="userName" value="USER NAME:" style="font-weight:bold"/>
+		        <p:outputLabel for="userName" value="ID USUARIO:" style="font-weight:bold"/>
 		        <p:inputText id="userName" value="#{appManagedBean.managedBeanUserDTO.userName}" name="userName"/>
-		        <p:outputLabel for="password" value="PASSWORD:" style="font-weight:bold"/>
+		        <p:outputLabel for="password" value="CONTRASEÑA:" style="font-weight:bold"/>
         		<p:password id="password" value="${appManagedBean.managedBeanUserDTO.encryptedPassword}" name="password"/>
 		        <input type="submit" value="Entrar" id="cmdentrarlogin"></input>
 		        <!--  <p:commandButton id="loginButton" value="Login" ajax="false"/> -->

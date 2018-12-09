@@ -6,8 +6,11 @@
 	template="/layout/templateAdmin.xhtml">
 
 	<ui:define name="body">
+	<p:separator style="margin-top:75px;dysplay:none"/>
 		<p:growl id="mensajes" showDetail="true" life="2000" />
-		<h1 id="tituloadmin">¡Bienvenido a zenit administrador!</h1>
+		<div align="center">
+		<h:outputText value="#{gamesManagedBean.returnAuth()} bienvenido al área de admnisitración" style="font-size:35px;"/>
+		</div>
 				
 	</ui:define>
 </ui:composition>

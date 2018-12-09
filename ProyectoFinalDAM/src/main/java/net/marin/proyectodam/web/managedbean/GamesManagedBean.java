@@ -84,6 +84,12 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
         
     }
     
+    public String returnAuth() {
+       return SecurityContextHolder.getContext().getAuthentication().getName();
+  
+    	
+    }
+    
     public void deleteUserValueGame() {
 
 		try {
