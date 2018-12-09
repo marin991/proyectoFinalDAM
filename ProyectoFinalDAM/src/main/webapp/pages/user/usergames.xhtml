@@ -2,7 +2,7 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:p="http://primefaces.org/ui" template="/layout/templateAdmin.xhtml">
+	xmlns:p="http://primefaces.org/ui" template="/layout/templateUser.xhtml">
 
 	<ui:define name="body">
 		<h:form>
@@ -12,50 +12,62 @@
 				rowKey="#{item.gameName}" >
 
 				<p:ajax event="rowEdit" listener="#{gamesManagedBean.onRowEditValue}" update="growl" />
-       			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancel}" update="growl" />
+       			<p:ajax event="rowEditCancel" listener="#{gamesManagedBean.onRowCancelValue}" update="growl" />
 				
-				<p:column headerText="Usuario" filterBy="#{item.userName}" filterMatchMode="contains">
+				<p:column rendered="false">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.userName}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.userName}" style="width:100%" label="Identificador" /></f:facet>
+		               <f:facet name="output"><h:outputText value="" /></f:facet>
+		               <f:facet name="input"><h:inputHidden value="#{item.userName}" style="width:100%" label="Identificador" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
 				
-				<p:column headerText="Nombre" filterBy="#{item.gameName}" filterMatchMode="contains">
+				<p:column headerText="Nombre" filterBy="#{item.gameName}" filterMatchMode="contains" positon="3">
 					
 					<p:cellEditor>
 		               <f:facet name="output"><h:outputText value="#{item.gameName}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.gameName}" style="width:100%" label="Identificador" /></f:facet>
+		               <f:facet name="input"><h:inputHidden value="#{item.gameName}" style="width:100%" label="Identificador" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
-				
-				<p:column headerText="Valoracion" filterBy="#{item.valoracion}" filterMatchMode="contains">
+					<p:column headerText="Portada">
 					
 					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.valoracion}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.valoracion}" style="width:100%" label="Identificador" /></f:facet>
-		           </p:cellEditor>
-				</p:column>
-				
-				<p:column headerText="Finalizado" filterBy="#{item.finalizado}" filterMatchMode="contains">
-					
-					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.finalizado}" /></f:facet>
-		               <f:facet name="input"><p:inputText value="#{item.finalizado}" style="width:100%" label="Identificador" /></f:facet>
-		           </p:cellEditor>
-				</p:column>
-				<p:column headerText="Imagen" filterBy="#{item.imagen}" filterMatchMode="contains">
-					
-					<p:cellEditor>
-		               <f:facet name="output"><h:outputText value="#{item.imagen}" /></f:facet>
+		               <f:facet name="output"><p:graphicImage value="/../../../images/#{item.imagen}" />
+		               </f:facet>
 		               <f:facet name="input"><p:inputText value="#{item.imagen}" style="width:100%" label="Identificador" /></f:facet>
 		           </p:cellEditor>
 				</p:column>
+				<p:column headerText="Valoración">
+					
+					<p:cellEditor>
+		               <f:facet name="output"> <p:rating value="#{item.valoracion}" stars="10" readonly="true"/>
+ 
+		               </f:facet>
+		               <f:facet name="input"><p:rating value="#{item.valoracion}" stars="10" /></f:facet>
+		           </p:cellEditor>
+				</p:column>
+				
+				<p:column headerText="Finalizado">
+					
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{gamesManagedBean.returnFinalizado(item.finalizado)}" /></f:facet>
+		               <f:facet name="input">
+		               		<p:selectOneMenu id="finalizado"
+								value="#{item.finalizado}">
+								<f:selectItem itemLabel="Finalizado" itemValue="1" />
+								<f:selectItem itemLabel="En curso" itemValue="0" />
+							</p:selectOneMenu>	
+		               </f:facet>
+		           </p:cellEditor>
+				</p:column>
+			
 				
 				<p:column style="width:32px">
 				    <p:rowEditor />
-				</p:column>   
+				</p:column>
+				
+				
+				   
 				<p:column style="width:32px">
 					<p:commandButton ajax="false" icon="ui-icon-trash"
 						validateClient="true" action="#{gamesManagedBean.deleteUserValueGame}" >

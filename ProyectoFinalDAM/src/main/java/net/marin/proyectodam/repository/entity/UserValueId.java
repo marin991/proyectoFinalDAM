@@ -14,6 +14,16 @@ public class UserValueId implements Serializable {
 	String userName;
 	String gameName;
 	
+	public UserValueId() {
+		
+	}
+	
+	public UserValueId(String userName,String gameName) {
+		
+		this.userName = userName;
+		this.gameName = gameName;
+	}
+	
 	public String getUserName() {
 		return userName;
 	}

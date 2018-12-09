@@ -17,18 +17,14 @@ import javax.servlet.http.HttpServletRequest;
 import org.primefaces.event.DragDropEvent;
 import org.primefaces.event.RowEditEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.AuthenticatedPrincipal;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import net.marin.proyectodam.repository.entity.AppRoleEntity;
 import net.marin.proyectodam.repository.entity.CategoriasEntity;
 import net.marin.proyectodam.repository.entity.PlataformasEntity;
 import net.marin.proyectodam.service.UserService;
-import net.marin.proyectodam.utils.dto.AppUserDTO;
 import net.marin.proyectodam.utils.dto.JuegoDTO;
-import net.marin.proyectodam.utils.dto.PlataformasDTO;
 import net.marin.proyectodam.utils.dto.UserValueGameDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosCategoriasDTO;
 import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
@@ -37,7 +33,7 @@ import net.marin.proyectodam.utils.dto.VideojuegosPlataformasDTO;
 @Component
 public class GamesManagedBean extends GenericManagedBean implements Serializable {
   
-    /**
+    /**dsfsdf
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -74,7 +70,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     
     @PostConstruct
     public void init() {
-    	authentication = SecurityContextHolder.getContext().getAuthentication();
+    	//authentication = SecurityContextHolder.getContext().getAuthentication();
     	managedJuegoDTO = new JuegoDTO();
     	userValueGameDTO = new UserValueGameDTO();
     	managedPlataformaDTO = new VideojuegosPlataformasDTO();
@@ -120,7 +116,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		
 		try {
 			userService.newJuego(managedJuegoDTO);
-			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
+			showInfoMessage("Exito", "Videjuego añadido a la biblioteca satisfactoriamente.");
 		}
 		catch (Exception e) {
 			showErrorMessage("Error ", e.getMessage());
@@ -129,9 +125,18 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     
     public void newCategory() {
     	
+    	//userService.findAllGames()
+    	/*int nuevoId = 0;
+    	for(JuegoDTO i:userService.findAllGames()) {
+    		 
+    		nuevoId = i.getIdVideojuego();
+    		System.out.println(nuevoId);
+    		
+    	}
+    		System.out.println("userService.findAllGames()"+nuevoId);*/
     	managedCategoriaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
+    	
 		try {
-			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
 			userService.newCategory(managedCategoriaDTO);
 		}
 		catch (Exception e) {
@@ -139,12 +144,18 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		}
 	}
     public void newPlatform() {
-		
+    	
+    	/*int nuevoId = 0;
+    	for(JuegoDTO i:userService.findAllGames()) {
+    		 
+    		nuevoId = i.getIdVideojuego();
+    		
+    	}*/
     	managedPlataformaDTO.setIdVideojuego(managedJuegoDTO.getIdVideojuego());
+
 		try {
 			System.out.println("managedPlataformaDTO.getIdVideojuego()"+managedPlataformaDTO.getIdVideojuego());
 			userService.newPlatform(managedPlataformaDTO);
-			showInfoMessage("Exito", "Usuario creado satisfactoriamente.");
 		}
 		catch (Exception e) {
 			showErrorMessage("Error ", e.getMessage());
@@ -193,7 +204,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     }
     
     public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("VideoJuego editado con exito"+((JuegoDTO) event.getObject()).getIdVideojuego());
+        FacesMessage msg = new FacesMessage("Exito en la edición del juego:",((JuegoDTO) event.getObject()).getNombre());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
         // Modificamos el código para poder usarlo en la capa de servicio
@@ -220,7 +231,7 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     }
     
     public void onRowEditValue(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("VideoJuego editado con exito"+((UserValueGameDTO) event.getObject()).getGameName());
+        FacesMessage msg = new FacesMessage("Nueva valoración del juego",((UserValueGameDTO) event.getObject()).getGameName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
        // Modificamos el código para poder usarlo en la capa de servicio
@@ -247,6 +258,8 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	//managedJuegoDTO = new JuegoDTO();
     	//games.clear();
     	//selectedGame = new JuegoDTO();
+    	//droppedGames = new ArrayList<JuegoDTO>();
+    	//resetForUser();
     	droppedGames.clear();
     	gamesSelected.clear();
     	games = userService.findAllGames();
@@ -254,7 +267,12 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 	}
     
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edición cancelada", ((AppUserDTO) event.getObject()).getUserName());
+        FacesMessage msg = new FacesMessage("Cancelada edición del juego:", ((JuegoDTO) event.getObject()).getNombre());
+        FacesContext.getCurrentInstance().addMessage(null, msg);
+    }
+    
+    public void onRowCancelValue(RowEditEvent event) {
+        FacesMessage msg = new FacesMessage("Cancelada valoración del juego:", ((UserValueGameDTO) event.getObject()).getGameName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
     
@@ -274,7 +292,8 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
     	UserValueGameDTO userValueGame = new UserValueGameDTO(currentPrincipalName, selectedGame.getNombre());
     	userValueGame.setImagen(selectedGame.getImagen());
     	userService.newUserValueGame(userValueGame);
-    	reload();
+    	//reload();
+    	
     }
 	
 	public String returnCategory(Set<CategoriasEntity> categoryEntities) {
@@ -304,6 +323,20 @@ public class GamesManagedBean extends GenericManagedBean implements Serializable
 		//idCategoria = categoryEntities.size();
 		return idPlataforma;
     }
+	public String  returnFinalizado(int finalizado) {
+		String finalizadoCadena = "";
+		
+			if(finalizado==1) {
+				
+				finalizadoCadena = "Finalizado" ;
+
+			}
+			else {
+				finalizadoCadena = "En curso";
+			}
+		return finalizadoCadena;
+		//String cadenaFinalizado = 
+	}
     
     public void setService(UserService userService) {
         this.userService = userService;

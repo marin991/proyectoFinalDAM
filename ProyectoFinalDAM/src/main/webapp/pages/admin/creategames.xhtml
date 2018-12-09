@@ -9,10 +9,11 @@
 		<h:form>
 			<p:panel header="Añadir videojuego a la biblioteca">
 				<h:panelGrid columns="2" cellpadding="3">
-					<h:outputLabel for="idVideojuego" value="idVideojuego:" />
-					<p:inputText id="idVideojuego"
-						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" required="true" label="idVideojuego" />
 					
+					<h:outputLabel for="idVideojuego" value="Identificador :" />
+					<p:inputText id="idVideojuego"
+						value="#{gamesManagedBean.managedJuegoDTO.idVideojuego}" required="true" label="Nombre" />
+						
 					<h:outputLabel for="nombre" value="Nombre:" />
 					<p:inputText id="nombre"
 						value="#{gamesManagedBean.managedJuegoDTO.nombre}" required="true" label="Nombre" />

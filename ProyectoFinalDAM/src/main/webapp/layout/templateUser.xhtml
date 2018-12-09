@@ -15,7 +15,7 @@
 	<title>Zenki</title>
 	<link rel="shortcut icon" href="/../../images/favicon.png" />
 	<!-- LINK PARA EL CSS  -->
-	<link type="text/css" href="/../../css/general.css" rel="stylesheet" /> <!-- ruta desde la web que llama al template -->
+	<link rel="stylesheet" type="text/css" href="/../../css/general.css"  /> <!-- ruta desde la web que llama al template -->
 </h:head>
 
 <h:body>
@@ -31,12 +31,12 @@
 	<!-- CABECERA CON LOGOS -->
 	<div id="cabecera">
 		<div class="logoAtos"></div>
-		<div class="logoVisi"></div>
 	</div>
 	
 	<div class="header">
 		<ui:include src="menuUser.xhtml" />
-		<ui:include src="menuLogout.xhtml" />
+				<ui:include src="menuLogout.xhtml" />
+		
 		<!-- INICIO AREA DE LOS MENSAJES -->
 		<p:growl id="growl" globalOnly="false" showDetail="true" sticky="true"
 			autoUpdate="true">

@@ -14,5 +14,8 @@ public interface UserValueGameRepository extends JpaRepository<UsuarioValoraEnti
 	public List<UsuarioValoraEntity> findByuserName(String userName);
 	
 	public boolean existsBygameName(String gameName);
+	public boolean existsByUserName(String userName);
+	
+//	public boolean existsByTwoIds(String userName,String gameName);
 
 }

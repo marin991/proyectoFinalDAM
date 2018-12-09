@@ -1,6 +1,9 @@
 package net.marin.proyectodam.service.impl;
 
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,6 +18,7 @@ import net.marin.proyectodam.repository.UserValueGameRepository;
 import net.marin.proyectodam.repository.entity.AppUserEntity;
 import net.marin.proyectodam.repository.entity.JuegoEntity;
 import net.marin.proyectodam.repository.entity.UserRoleEntity;
+import net.marin.proyectodam.repository.entity.UserValueId;
 import net.marin.proyectodam.repository.entity.UsuarioValoraEntity;
 import net.marin.proyectodam.repository.entity.VideoJuegosCategoriasEntity;
 import net.marin.proyectodam.repository.entity.VideojuegosPlataformasEntity;
@@ -81,8 +85,13 @@ public class UserServiceImpl implements UserService {
 	public void newJuego(JuegoDTO juegoDTO) throws Exception {
 	
 		JuegoEntity juegoEntity = Converter.juegoDTOtoJuegoEntity(juegoDTO);	
-		juegoRepository.save(juegoEntity);
-		
+		if(juegoRepository.existsById(juegoDTO.getIdVideojuego())) {
+			throw new Exception("El videojuego con nombre " + juegoDTO.getNombre() + " ya existe");
+			
+		}
+		else {
+			juegoRepository.save(juegoEntity);
+		}
 	
 	}
 	@Override
@@ -105,9 +114,22 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void newUserValueGame(UserValueGameDTO userValueDTO) throws Exception {
 		
+		UserValueId userValueId = new UserValueId(userValueDTO.getUserName(), userValueDTO.getGameName());
+		System.out.println("userValueId.getGameName()"+userValueId.getGameName()+"userValueId.getUserName()"+userValueId.getUserName());
 		
-		UsuarioValoraEntity usuarioValoraEntity = Converter.userValueDTOToUserValueEntity(userValueDTO);	
-		userValueGameRepository.save(usuarioValoraEntity);
+		if (userValueGameRepository.existsById(userValueId)) {
+			FacesMessage msg = new FacesMessage("Ya existe en la biblioteca no se añadirá el videjuego:", userValueDTO.getGameName());
+	    	FacesContext.getCurrentInstance().addMessage(null, msg);
+			
+			
+		}
+		else {
+			FacesMessage msg = new FacesMessage("Videojuego añadido a la biblioteca personal:", userValueDTO.getGameName());
+	    	FacesContext.getCurrentInstance().addMessage(null, msg);
+	    	UsuarioValoraEntity usuarioValoraEntity = Converter.userValueDTOToUserValueEntity(userValueDTO);	
+			userValueGameRepository.save(usuarioValoraEntity);
+		}
+	
 		
 	
 	}
@@ -207,7 +229,7 @@ public class UserServiceImpl implements UserService {
 			juegoRepository.deleteById(gameToDelete);
 			
 		} else {
-			System.out.println("UserRol inexiste");
+			System.out.println("inexiste");
 		}
 	}
 

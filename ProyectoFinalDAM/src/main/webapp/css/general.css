@@ -24,15 +24,14 @@ body {
 	background-repeat: no-repeat;
 	background-position:center ;
 }
-
+/*
 #cabecera .logoVisi {
 	width: 100%;
 	height: 120px;
 	background-image: url("/images/logoVisi.png");
 	background-repeat: no-repeat;
 	background-position:center;
-}
-
+}*/
 #titulo-login {
 	text-align: center;
 }

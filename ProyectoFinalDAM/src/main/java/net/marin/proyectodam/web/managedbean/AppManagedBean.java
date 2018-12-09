@@ -100,7 +100,7 @@ public class AppManagedBean extends GenericManagedBean {
 
 		try {
 			userService.newUserRole(managedBeanUserRoleDTO);
-			showInfoMessage("Exito", "Usuario rol asignado satisfactoriamente.");
+			//showInfoMessage("Exito", "Usuario rol asignado satisfactoriamente.");
 		}
 		catch (Exception e) {
 			showErrorMessage("Error ", e.getMessage());
@@ -202,7 +202,7 @@ public class AppManagedBean extends GenericManagedBean {
 	 */
 	
 	public void onRowEdit(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Usuario editado", ((AppUserDTO) event.getObject()).getUserName());
+        FacesMessage msg = new FacesMessage("Exito en la edición del usuario:", ((AppUserDTO) event.getObject()).getUserName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
         
         // Modificamos el código para poder usarlo en la capa de servicio
@@ -221,7 +221,7 @@ public class AppManagedBean extends GenericManagedBean {
     }
      
     public void onRowCancel(RowEditEvent event) {
-        FacesMessage msg = new FacesMessage("Edición cancelada", ((AppUserDTO) event.getObject()).getUserName());
+        FacesMessage msg = new FacesMessage("Edición cancelada del usuario:", ((AppUserDTO) event.getObject()).getUserName());
         FacesContext.getCurrentInstance().addMessage(null, msg);
     }
 

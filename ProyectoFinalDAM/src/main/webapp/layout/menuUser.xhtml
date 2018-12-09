@@ -5,19 +5,10 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:form id="menu">
-		<div class="clearfix">
-			<p:menubar>
-				<p:menuitem style="margin-left: 14px">
-					<h:link outcome="/index.xhtml">
-						<h:graphicImage url="/images/logout1.png" height="30px" />
-					</h:link>
-				</p:menuitem>
-				<p:submenu label="|User|" style="margin-top: 14px; margin-left: 14px" url="/pages/user/userhome.xhtml" >
-					<p:menuitem value="Home" style="margin-top: 14px" url="/pages/user/userhome.xhtml" />			
-					<p:menuitem value="Tu biblioteca" style="margin-top: 14px" url="/pages/user/usergames.xhtml" />
-				</p:submenu>			
-				<p:menuitem value="|Admin|" style="margin-top: 14px; margin-left: 14px" url="/pages/admin/adminhome.xhtml" />
-			</p:menubar>
-		</div>
+		<p:dock position="top" maxWidth="70" itemWidth="55">
+		    <p:menuitem value="Tu biblioteca" icon="/images/notebook.png" url="/pages/user/usergames.xhtml"/>
+		    <p:menuitem value="Home " icon="/images/game-controller.png" url="/pages/user/userhome.xhtml"/>
+		    <p:menuitem value="Administración" icon="/images/men.png" url="/pages/admin/adminhome.xhtml"/>
+	</p:dock>
 	</h:form>
 </ui:composition>

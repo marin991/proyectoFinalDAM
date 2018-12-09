@@ -5,27 +5,16 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<h:form id="menu">
-		<div class="clearfix">
-			<p:menubar>
-			
-				<p:menuitem style="margin-left: 14px">
-					<h:link outcome="/index.xhtml">
-						<h:graphicImage url="/images/logout1.png" height="30px" />
-					</h:link>
-				</p:menuitem>
-				<p:submenu label="|User|" style="margin-top: 14px; margin-left: 14px" url="/pages/user/userhome.xhtml" >
-					<p:menuitem value="Home" style="margin-top: 14px" url="/pages/user/userhome.xhtml" />			
-					<p:menuitem value="Tu biblioteca" style="margin-top: 14px" url="/pages/user/usergames.xhtml" />
-				</p:submenu>					
-				<p:submenu label="|Admin|" style="margin-top: 14px; margin-left: 14px">
-					<p:menuitem value="Home Administrador" style="margin-top: 14px" url="/pages/admin/adminhome.xhtml" />	
-					<p:menuitem value="Administrar usuarios" style="margin-top: 14px" url="/pages/admin/updateuser.xhtml" />		
-					<p:menuitem value="Crear nuevo usuario" style="margin-top: 14px" url="/pages/admin/createuser.xhtml" />
-					<p:menuitem value="Añadir nuevo videojuego" style="margin-top: 14px" url="/pages/admin/creategames.xhtml" />
-					<p:menuitem value="Administrar videojuegos" style="margin-top: 14px" url="/pages/admin/updategames.xhtml" />					
-				</p:submenu>
-			</p:menubar>
-		</div>
+			<p:dock position="top" maxWidth="70" itemWidth="55">
+				<p:menuitem value="Zona usuario" icon="/images/game-controller.png" url="/pages/user/userhome.xhtml"/>
+			    <p:menuitem value="Crear usuario" icon="/images/add-friend.png" url="/pages/admin/createuser.xhtml"/>
+			    <p:menuitem value="Administrar usuarios" icon="/images/management.png" url="/pages/admin/updateuser.xhtml"/>
+			   	<p:menuitem value="Añadir videojuego" icon="/images/add-image.png" url="/pages/admin/creategames.xhtml"/>
+			   	<p:menuitem value="Administrar videojuegos" icon="/images/notepad.png" url="/pages/admin/updategames.xhtml"/>
+		   		<p:menuitem value="Administración" icon="/images/men.png" url="/pages/admin/adminhome.xhtml"/>
+			</p:dock>
 	</h:form>
+	<p:separator style="width:500px;height:20px"/>
+		
 </ui:composition>
 
