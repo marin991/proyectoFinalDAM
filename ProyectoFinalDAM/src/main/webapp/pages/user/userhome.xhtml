@@ -8,6 +8,7 @@
 
 	<ui:define name="body">
 		<p:growl id="mensajes" showDetail="true" life="2000" />
+			<p:separator style="margin-top:75px;dysplay:none"/>
 		<div align="center">
 		<h:outputText value="#{gamesManagedBean.returnAuth()} bienvenido a Zenki" style="font-size:35px;"/>
 		</div>
@@ -17,10 +18,10 @@
 		<script type="text/javascript" src="/../../../js/drop.js"></script>
 	<h:form id="gameForm">
 	    <p:fieldset id="availableGamesField" legend="Juegos disponibles" style="background-color:rgba(0,0,0,0.5);">
-	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="3" styleClass="ui-datagrid-no-border">
+	        <p:dataGrid id="availableGames" var="item" value="#{gamesManagedBean.games}" columns="5" styleClass="ui-datagrid-no-border">
 	            <p:panel id="pnl" header="#{item.nombre}" style="text-align:center;background-color:rgba(0,0,0,0.5);" >
 	                <h:panelGrid columns="1" style="width:100%">
-	                    <p:graphicImage value="/../../../images/#{item.imagen}" />
+	                    <p:graphicImage value="/../../../images/game/#{item.imagen}" style="Width:200px;height:200px"/>
 	                    
 	                </h:panelGrid>
 	            </p:panel>
@@ -29,9 +30,11 @@
 	        </p:dataGrid>
 	    </p:fieldset>
 		    <p:separator />
-		       <p:commandButton value="Limpiar" update="selectedGames,availableGames"
+		    <div align="center">
+		       <p:commandButton value="Refrescar" update="selectedGames,availableGames"
 						icon="fa fa-refresh"
 						action="#{gamesManagedBean.resetForUser()}"/>
+			</div>
 			<p:separator />
 	    <p:fieldset id="selectedGames" legend="Juegos seleccionados" style="margin-top:20px; background-color:rgba(0,0,0,0.5);">
 	        <p:outputPanel id="dropArea">
@@ -73,7 +76,7 @@
 	        <p:outputPanel id="display">
 	            <h:panelGrid columns="2" cellpadding="5" rendered="#{not empty gamesManagedBean.selectedGame}">
 	                <f:facet name="header">
-	                    <p:graphicImage value="/../../../images/#{gamesManagedBean.selectedGame.imagen}"/>
+	                    <p:graphicImage value="/../../../images/game/#{gamesManagedBean.selectedGame.imagen}"/>
 	                </f:facet>
 	 
 	                <h:outputText value="Id:" />
